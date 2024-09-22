@@ -64,7 +64,6 @@ const Navbar = () => {
             variant="h6"
             noWrap
             component="a"
-            href="#app-bar-with-responsive-menu"
             sx={{
               mr: 2,
               display: { xs: "none", md: "flex" },
@@ -73,13 +72,18 @@ const Navbar = () => {
               letterSpacing: ".3rem",
               color: "inherit",
               textDecoration: "none",
-              justifyContent: "center",
             }}
           >
             <img className="h-20" src={logo} alt="" />
           </Typography>
 
-          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
+          <Box
+            sx={{
+              flexGrow: 1,
+              display: { xs: "flex", md: "none" },
+              justifyContent: "center",
+            }}
+          >
             <IconButton
               size="large"
               aria-label="account of current user"
@@ -101,7 +105,13 @@ const Navbar = () => {
               }}
               open={Boolean(anchorElNav)}
               onClose={handleCloseNavMenu}
-              sx={{ display: { xs: "block", md: "none" } }}
+              sx={{
+                display: {
+                  xs: "flex",
+                  md: "none",
+                  justifyContent: "center",
+                },
+              }}
             >
               {navlinks}
             </Menu>
@@ -113,15 +123,14 @@ const Navbar = () => {
             component="a"
             href="#app-bar-with-responsive-menu"
             sx={{
-              mr: 2,
+              mr: 18,
               display: { xs: "flex", md: "none" },
-
+              justifyContent: "center",
               fontFamily: "monospace",
               fontWeight: 700,
               letterSpacing: ".3rem",
               color: "inherit",
               textDecoration: "none",
-              justifyContent: "center",
             }}
           >
             <img className="h-20 " src={logo} alt="" />
@@ -129,7 +138,7 @@ const Navbar = () => {
           <Box
             sx={{
               flexGrow: 1,
-              display: { xs: "none", md: "flex", mr: "60px" },
+              display: { xs: "none", md: "flex" },
               justifyContent: "center",
             }}
           >
