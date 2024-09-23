@@ -1,0 +1,12 @@
+.custom-title {
+  font-size: 58px;
+  text-align: center;
+}
+
+.zoom-image {
+  transition: transform 0.3s ease;
+}
+
+.zoom-image:hover {
+  transform: scale(1.1);
+}
