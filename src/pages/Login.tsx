@@ -4,7 +4,7 @@ import "../styles/cartmodel.css";
 import "antd/dist/reset.css";
 import { Button } from "antd";
 import LoginIcon from "@mui/icons-material/Login";
-import { Link } from "react-router-dom";
+import Register from "./Register";
 
 const Login = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -46,14 +46,14 @@ const Login = () => {
         <>
           <div className="cartoverlay" onClick={closeModal}></div>
           <div
-            className={`cartmodel p-6 overflow-y-auto text-primary ${
+            className={`cartmodel p-6 overflow-y-f text-primary ${
               isCloseing ? "closing" : ""
             }`}
           >
             <div className="">
-              <div className="flex flex-col items-center justify-center  mx-auto  lg:py-0">
+              <div className="flex flex-col items-center justify-center   mx-auto  lg:py-0">
                 <div className="w-full bg-white rounded-lg  dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
-                  <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
+                  <div className="p-6 space-y-4 md:space-y-6  sm:p-8">
                     <h1 className="text-base font-bold leading-tight tracking-tight text-gray-900 md:text-xl dark:text-white">
                       Sign in to your account
                     </h1>
@@ -99,8 +99,10 @@ const Login = () => {
                       </Button>
 
                       <p className="text-sm font-light text-gray-500 dark:text-gray-400">
-                        Don’t have an account yet?{" "}
-                        <Link to="register">Enter please register</Link>
+                        Don’t have an account yet? Enter please{" "}
+                        <p className="cursor-pointer text-cyan-500">
+                          <Register />
+                        </p>
                       </p>
                     </form>
                     <hr className="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700" />
