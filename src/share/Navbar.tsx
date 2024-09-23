@@ -1,4 +1,7 @@
 import logo from "../assets/icons/navber_logo.png";
+import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
+import SearchIcon from "@mui/icons-material/Search";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 
 import {
   AppBar,
@@ -138,6 +141,19 @@ const Navbar = () => {
           >
             {navlinks}
             <Login />
+          </Box>
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              gap: "20px",
+              marginRight: "20px",
+            }}
+          >
+            <PersonOutlineIcon sx={{ fontSize: "30px" }} />
+            <SearchIcon sx={{ fontSize: "30px" }} />
+            <ShoppingCartIcon sx={{ fontSize: "30px" }} />
           </Box>
 
           {/* User Avatar and Menu */}
