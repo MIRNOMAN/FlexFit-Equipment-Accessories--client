@@ -11,7 +11,15 @@ import LogoutIcon from "@mui/icons-material/Logout";
 
 const SmalldeviceSidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [isCloseing, setIsCloseing] = useState(false);
+  const [isClosing, setIsClosing] = useState(false);
+
+  const toggleModal = () => {
+    if (isOpen) {
+      closeModal();
+    } else {
+      openModal();
+    }
+  };
 
   const openModal = () => {
     setIsOpen(true);
@@ -19,14 +27,13 @@ const SmalldeviceSidebar = () => {
   };
 
   const closeModal = () => {
-    setIsCloseing(true);
+    setIsClosing(true);
     document.body.style.overflowX = "auto";
     setTimeout(() => {
       setIsOpen(false);
-      setIsCloseing(false);
+      setIsClosing(false);
     }, 300);
   };
-
   const navLinksData = [
     { to: "/", label: "Home", icon: <HomeIcon /> },
     { to: "/products", label: "Products", icon: <ShoppingBagIcon /> },
@@ -36,15 +43,15 @@ const SmalldeviceSidebar = () => {
   ];
 
   const navlinks = (
-    <ul className="flex gap-8 text-lg font-semibold">
+    <ul className="text-left gap-8 text-lg font-semibold">
       {navLinksData.map((link, index) => (
         <li key={index}>
           <NavLink
             to={link.to}
             className={({ isActive }) =>
               isActive
-                ? "flex items-center gap-2 p-2 bg-blue-500 text-white rounded"
-                : "flex items-center gap-2 p-2 hover:bg-gray-200 rounded"
+                ? "block  gap-2 p-2 bg-blue-500 text-white rounded"
+                : "block  gap-2 p-2 hover:bg-gray-200 rounded"
             }
           >
             {link.icon} {link.label}
@@ -55,13 +62,13 @@ const SmalldeviceSidebar = () => {
   );
   return (
     <>
-      <MenuIcon fontSize="large" onClick={openModal} />
+      <MenuIcon fontSize="large" onClick={toggleModal} />
       {isOpen && (
         <>
           <div className="cartoverlay" onClick={closeModal}></div>
           <div
             className={`cartmodel_small p-6 overflow-y-f text-primary ${
-              isCloseing ? "closing" : ""
+              isClosing ? "closing" : ""
             }`}
           >
             <div className="">
@@ -71,7 +78,7 @@ const SmalldeviceSidebar = () => {
                     <img className="h-16" src={logo} alt="" />
                   </div>
                   <div>
-                    <CloseIcon fontSize="large" />
+                    <CloseIcon fontSize="large" onClick={closeModal} />
                   </div>
                 </div>
 

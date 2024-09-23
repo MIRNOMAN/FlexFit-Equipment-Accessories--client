@@ -17,7 +17,17 @@ import SmalldeviceSidebar from "../utils/sidebar/SmalldeviceSidebar";
 
 const Navbar = () => {
   const navlinks = (
-    <ul className="flex gap-8  text-lg font-semibold">
+    <ul
+      className="flex gap-8 text-lg font-semibold"
+      style={{
+        listStyle: "none",
+        padding: 0,
+        margin: 0,
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
       <li>
         <NavLink to="/">Home</NavLink>
       </li>
