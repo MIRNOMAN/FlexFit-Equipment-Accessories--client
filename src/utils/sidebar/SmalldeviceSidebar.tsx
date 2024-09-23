@@ -3,6 +3,11 @@ import { NavLink } from "react-router-dom";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
 import logo from "../../assets/icons/navber_logo.png";
+import HomeIcon from "@mui/icons-material/Home";
+import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
+import InfoIcon from "@mui/icons-material/Info";
+import LoginIcon from "@mui/icons-material/Login";
+import LogoutIcon from "@mui/icons-material/Logout";
 
 const SmalldeviceSidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -25,13 +30,31 @@ const SmalldeviceSidebar = () => {
   const navlinks = (
     <ul className=" gap-8  text-lg font-semibold">
       <li>
-        <NavLink to="/">Home</NavLink>
+        <NavLink to="/">
+          <HomeIcon /> Home
+        </NavLink>
       </li>
       <li>
-        <NavLink to="/products">Products</NavLink>
+        <NavLink to="/products">
+          <ShoppingBagIcon /> Products
+        </NavLink>
       </li>
       <li>
-        <NavLink to="/aboutus">About Us</NavLink>
+        <NavLink to="/aboutus">
+          {" "}
+          <InfoIcon /> About Us
+        </NavLink>
+      </li>
+      <li>
+        <NavLink to="/login">
+          {" "}
+          <LoginIcon /> Login
+        </NavLink>
+      </li>
+      <li>
+        <NavLink to="/register">
+          <LogoutIcon /> Register
+        </NavLink>
       </li>
     </ul>
   );
@@ -60,7 +83,7 @@ const SmalldeviceSidebar = () => {
 
                 <hr className="w-full h-px my-8 bg-gray-200 border-0 dark:bg-gray-300"></hr>
 
-                <h4>{navlinks}</h4>
+                <h4 className=" p-5 border ">{navlinks}</h4>
               </div>
             </div>
           </div>
