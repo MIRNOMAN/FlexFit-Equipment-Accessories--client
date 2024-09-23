@@ -3,6 +3,8 @@ import { useForm } from "react-hook-form";
 import "../styles/cartmodel.css";
 import "antd/dist/reset.css";
 import { Button } from "antd";
+import LoginIcon from "@mui/icons-material/Login";
+import { Link } from "react-router-dom";
 
 const Login = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -93,10 +95,12 @@ const Login = () => {
                         size="large"
                         shape="round"
                       >
-                        Sign in
+                        <LoginIcon fontSize="inherit" /> Sign in
                       </Button>
+
                       <p className="text-sm font-light text-gray-500 dark:text-gray-400">
-                        Don’t have an account yet? please register
+                        Don’t have an account yet?{" "}
+                        <Link to="register">Enter please register</Link>
                       </p>
                     </form>
                     <hr className="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700" />
