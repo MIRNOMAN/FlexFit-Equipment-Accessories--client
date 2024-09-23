@@ -12,6 +12,7 @@ import {
 } from "@mui/material";
 import React from "react";
 import { NavLink } from "react-router-dom";
+import Login from "../pages/Login";
 
 const Navbar = () => {
   const navlinks = (
@@ -25,9 +26,6 @@ const Navbar = () => {
         </li>
         <li>
           <NavLink to="/aboutus">About Us</NavLink>
-        </li>
-        <li>
-          <NavLink to="/login">Login</NavLink>
         </li>
       </ul>
     </>
@@ -143,6 +141,7 @@ const Navbar = () => {
             }}
           >
             {navlinks}
+            <Login />
           </Box>
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
