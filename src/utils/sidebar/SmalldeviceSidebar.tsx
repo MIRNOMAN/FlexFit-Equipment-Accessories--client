@@ -27,38 +27,32 @@ const SmalldeviceSidebar = () => {
     }, 300);
   };
 
+  const navLinksData = [
+    { to: "/", label: "Home", icon: <HomeIcon /> },
+    { to: "/products", label: "Products", icon: <ShoppingBagIcon /> },
+    { to: "/aboutus", label: "About Us", icon: <InfoIcon /> },
+    { to: "/login", label: "Login", icon: <LoginIcon /> },
+    { to: "/register", label: "Register", icon: <LogoutIcon /> },
+  ];
+
   const navlinks = (
-    <ul className=" gap-8  text-lg font-semibold">
-      <li>
-        <NavLink to="/">
-          <HomeIcon /> Home
-        </NavLink>
-      </li>
-      <li>
-        <NavLink to="/products">
-          <ShoppingBagIcon /> Products
-        </NavLink>
-      </li>
-      <li>
-        <NavLink to="/aboutus">
-          {" "}
-          <InfoIcon /> About Us
-        </NavLink>
-      </li>
-      <li>
-        <NavLink to="/login">
-          {" "}
-          <LoginIcon /> Login
-        </NavLink>
-      </li>
-      <li>
-        <NavLink to="/register">
-          <LogoutIcon /> Register
-        </NavLink>
-      </li>
+    <ul className="flex gap-8 text-lg font-semibold">
+      {navLinksData.map((link, index) => (
+        <li key={index}>
+          <NavLink
+            to={link.to}
+            className={({ isActive }) =>
+              isActive
+                ? "flex items-center gap-2 p-2 bg-blue-500 text-white rounded"
+                : "flex items-center gap-2 p-2 hover:bg-gray-200 rounded"
+            }
+          >
+            {link.icon} {link.label}
+          </NavLink>
+        </li>
+      ))}
     </ul>
   );
-
   return (
     <>
       <MenuIcon fontSize="large" onClick={openModal} />
@@ -83,7 +77,7 @@ const SmalldeviceSidebar = () => {
 
                 <hr className="w-full h-px my-8 bg-gray-200 border-0 dark:bg-gray-300"></hr>
 
-                <h4 className=" p-5 border ">{navlinks}</h4>
+                <h4>{navlinks}</h4>
               </div>
             </div>
           </div>
