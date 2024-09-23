@@ -16,19 +16,17 @@ import Login from "../pages/Login";
 
 const Navbar = () => {
   const navlinks = (
-    <>
-      <ul className="flex gap-8 text-lg font-semibold">
-        <li>
-          <NavLink to="/">Home</NavLink>
-        </li>
-        <li>
-          <NavLink to="/products">Products</NavLink>
-        </li>
-        <li>
-          <NavLink to="/aboutus">About Us</NavLink>
-        </li>
-      </ul>
-    </>
+    <ul className="flex gap-8  text-lg font-semibold">
+      <li>
+        <NavLink to="/">Home</NavLink>
+      </li>
+      <li>
+        <NavLink to="/products">Products</NavLink>
+      </li>
+      <li>
+        <NavLink to="/aboutus">About Us</NavLink>
+      </li>
+    </ul>
   );
 
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
@@ -58,6 +56,7 @@ const Navbar = () => {
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
+          {/* Logo for desktop view */}
           <Typography
             variant="h6"
             noWrap
@@ -72,26 +71,46 @@ const Navbar = () => {
               textDecoration: "none",
             }}
           >
-            <img className="h-20" src={logo} alt="" />
+            <img className="h-20" src={logo} alt="logo" />
           </Typography>
 
+          {/* Mobile view menu */}
           <Box
             sx={{
               flexGrow: 1,
               display: { xs: "flex", md: "none" },
-              justifyContent: "center",
+              justifyContent: "space-between",
+              alignItems: "center",
             }}
           >
+            <Typography
+              variant="h5"
+              noWrap
+              component="a"
+              sx={{
+                display: { xs: "flex", md: "none" },
+                fontFamily: "monospace",
+                fontWeight: 700,
+                letterSpacing: ".3rem",
+                color: "inherit",
+                textDecoration: "none",
+              }}
+            >
+              <img className="h-20" src={logo} alt="logo" />
+            </Typography>
             <IconButton
               size="large"
-              aria-label="account of current user"
+              aria-label="menu"
               aria-controls="menu-appbar"
               aria-haspopup="true"
               onClick={handleOpenNavMenu}
               color="inherit"
-            ></IconButton>
+            >
+              {/* Use your hamburger icon here, e.g., <MenuIcon /> */}
+            </IconButton>
             <Menu
               id="menu-appbar"
+              anchorEl={anchorElNav}
               anchorOrigin={{
                 vertical: "bottom",
                 horizontal: "left",
@@ -103,50 +122,30 @@ const Navbar = () => {
               }}
               open={Boolean(anchorElNav)}
               onClose={handleCloseNavMenu}
-              sx={{
-                display: {
-                  xs: "flex",
-                  md: "none",
-                  justifyContent: "center",
-                },
-              }}
+              sx={{ display: { xs: "block", md: "none" } }}
             >
               {navlinks}
             </Menu>
           </Box>
 
-          <Typography
-            variant="h5"
-            noWrap
-            component="a"
-            href="#app-bar-with-responsive-menu"
-            sx={{
-              mr: 18,
-              display: { xs: "flex", md: "none" },
-              justifyContent: "center",
-              fontFamily: "monospace",
-              fontWeight: 700,
-              letterSpacing: ".3rem",
-              color: "inherit",
-              textDecoration: "none",
-            }}
-          >
-            <img className="h-20 " src={logo} alt="" />
-          </Typography>
+          {/* Links and Login button for desktop view */}
           <Box
             sx={{
               flexGrow: 1,
               display: { xs: "none", md: "flex" },
               justifyContent: "center",
+              alignItems: "center",
             }}
           >
             {navlinks}
             <Login />
           </Box>
+
+          {/* User Avatar and Menu */}
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                <Avatar alt="User Avatar" src="/static/images/avatar/2.jpg" />
               </IconButton>
             </Tooltip>
             <Menu
