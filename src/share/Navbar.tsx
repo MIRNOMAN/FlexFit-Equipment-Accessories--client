@@ -1,7 +1,7 @@
 import logo from "../assets/icons/navber_logo.png";
+
 import {
   AppBar,
-  Avatar,
   Box,
   Container,
   IconButton,
@@ -13,6 +13,7 @@ import {
 import React from "react";
 import { NavLink } from "react-router-dom";
 import Login from "../pages/Login";
+import SmalldeviceSidebar from "../utils/sidebar/SmalldeviceSidebar";
 
 const Navbar = () => {
   const navlinks = (
@@ -32,9 +33,6 @@ const Navbar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null
   );
-  const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
-    null
-  );
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
@@ -42,14 +40,6 @@ const Navbar = () => {
 
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
-  };
-
-  const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorElUser(event.currentTarget);
-  };
-
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
   };
 
   return (
@@ -80,7 +70,6 @@ const Navbar = () => {
               flexGrow: 1,
               display: { xs: "flex", md: "none" },
               justifyContent: "space-between",
-              alignItems: "center",
             }}
           >
             <Typography
@@ -142,30 +131,13 @@ const Navbar = () => {
           </Box>
 
           {/* User Avatar and Menu */}
-          <Box sx={{ flexGrow: 0 }}>
+
+          <Box sx={{ flexGrow: 0, display: { xs: "block", md: "none" } }}>
             <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu}>
-                <Avatar alt="User Avatar" src="/static/images/avatar/2.jpg" />
+              <IconButton>
+                <SmalldeviceSidebar />
               </IconButton>
             </Tooltip>
-            <Menu
-              sx={{ mt: "45px" }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              {navlinks}
-            </Menu>
           </Box>
         </Toolbar>
       </Container>
