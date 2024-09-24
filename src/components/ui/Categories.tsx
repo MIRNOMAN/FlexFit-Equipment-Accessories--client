@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Card, Carousel } from "antd";
 import { LeftOutlined, RightOutlined } from "@ant-design/icons";
 import category1 from "../../assets/images/categories/Treadmills.jpg";
@@ -23,51 +23,64 @@ const categories = [
 ];
 
 const Categories = () => {
-  const carouselRef = React.useRef<CarouselRef>(null); // Correct ref type
+  const carouselRef = React.useRef<CarouselRef>(null);
+  const [slidesToShow, setSlidesToShow] = useState(1); // Default to 1 slide
+
+  const updateSlidesToShow = () => {
+    const width = window.innerWidth;
+    if (width >= 1024) {
+      setSlidesToShow(4); // Large devices
+    } else if (width >= 768) {
+      setSlidesToShow(3); // Medium devices
+    } else if (width >= 640) {
+      setSlidesToShow(2); // Small devices
+    } else {
+      setSlidesToShow(1); // Extra small devices
+    }
+  };
+
+  useEffect(() => {
+    updateSlidesToShow();
+    window.addEventListener("resize", updateSlidesToShow);
+    return () => {
+      window.removeEventListener("resize", updateSlidesToShow);
+    };
+  }, []);
 
   const next = () => {
     if (carouselRef.current) {
-      carouselRef.current.next(); // Access next method
+      carouselRef.current.next();
     }
   };
 
   const prev = () => {
     if (carouselRef.current) {
-      carouselRef.current.prev(); // Access prev method
+      carouselRef.current.prev();
     }
   };
 
   return (
-    <div className="mx-auto max-w-6xl my-20 relative">
+    <div className="mx-auto max-w-6xl my-20  relative">
       {/* Carousel */}
       <Carousel
         ref={carouselRef}
         dots={false}
-        slidesToShow={3} // Adjust number of visible cards
+        slidesToShow={slidesToShow} // Use dynamic slidesToShow
         slidesToScroll={1}
-        infinite={false} // Disable infinite scrolling
+        infinite={false}
       >
         {categories.map((category, index) => (
-          <div key={index} className="flex justify-center">
+          <div key={index} className="flex space-x-10 justify-center ">
             <Card
               hoverable
-              style={{ width: 340, height: 300, overflow: "hidden" }}
+              className="w-60 h-60 md:w-80 lg:w-full  " // Responsive card sizes
             >
               <img
                 alt={category.title}
                 src={category.image}
-                className="zoom-image"
-                style={{ width: "100%", height: "230px", display: "block" }}
+                className="zoom-image w-full h-40 object-cover" // Adjust image size and maintain aspect ratio
               />
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  height: "40px", // Space reserved for title
-                  textAlign: "center",
-                }}
-              >
+              <div className="flex justify-center items-center h-10 text-center">
                 <Meta title={category.title} />
               </div>
             </Card>
@@ -78,25 +91,13 @@ const Categories = () => {
       {/* Left Arrow Button */}
       <LeftOutlined
         onClick={prev}
-        style={{
-          position: "absolute",
-          top: "50%",
-          left: "-40px",
-          fontSize: "24px",
-          cursor: "pointer",
-        }}
+        className="absolute top-1/2 left-[-40px] text-xl cursor-pointer"
       />
 
       {/* Right Arrow Button */}
       <RightOutlined
         onClick={next}
-        style={{
-          position: "absolute",
-          top: "50%",
-          right: "-40px",
-          fontSize: "24px",
-          cursor: "pointer",
-        }}
+        className="absolute top-1/2 right-[-40px] text-xl cursor-pointer"
       />
     </div>
   );
