@@ -1,0 +1,13 @@
+/* styles.css or your existing stylesheet */
+.hr-animation {
+  width: 30%;
+  height: 2px; /* Adjust the thickness */
+  background-color: #000; /* Change to your preferred color */
+  opacity: 0; /* Start invisible */
+  transition: opacity 0.5s ease-in;
+  /* Fade-in effect */
+}
+
+.hr-animation.visible {
+  opacity: 1; /* Become visible */
+}
