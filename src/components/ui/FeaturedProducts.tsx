@@ -5,10 +5,9 @@ const FeaturedProducts = () => {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    // Set the hr to visible after the component mounts
     const timer = setTimeout(() => {
       setVisible(true);
-    }, 100); // Delay before showing the hr
+    }, 100);
 
     return () => clearTimeout(timer);
   }, []);
