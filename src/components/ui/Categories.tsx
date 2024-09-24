@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Card, Carousel } from "antd";
 import { LeftOutlined, RightOutlined } from "@ant-design/icons";
+import { useNavigate } from "react-router-dom";
 import category1 from "../../assets/images/categories/Treadmills.jpg";
 import category2 from "../../assets/images/categories/Barbells.jpg";
 import category3 from "../../assets/images/categories/Dumbbells.jpg";
@@ -23,6 +24,7 @@ const categories = [
 ];
 
 const Categories = () => {
+  const navigate = useNavigate();
   const carouselRef = React.useRef<CarouselRef>(null);
   const [slidesToShow, setSlidesToShow] = useState(1); // Default to 1 slide
 
@@ -59,6 +61,10 @@ const Categories = () => {
     }
   };
 
+  const handleCategoryClick = (title: string) => {
+    navigate(`/products?category=${title}`); // Use navigate instead of history
+  };
+
   return (
     <div className="mx-auto max-w-6xl my-20  relative">
       {/* Carousel */}
@@ -73,6 +79,7 @@ const Categories = () => {
           <div key={index} className="flex space-x-10 justify-center ">
             <Card
               hoverable
+              onClick={() => handleCategoryClick(category.title)}
               className="w-60 h-60 md:w-80 lg:w-full  " // Responsive card sizes
             >
               <img
