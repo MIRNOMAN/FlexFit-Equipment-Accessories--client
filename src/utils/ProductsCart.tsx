@@ -3,7 +3,17 @@ import { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { useScrollAnimation } from "../hooks/useScrollAnimation";
 
-const ProductsCart = ({ product }) => {
+type TProduct = {
+  image: string;
+  name: string;
+  price: number;
+};
+
+type ProductFeatureProps = {
+  product: TProduct;
+};
+
+const ProductsCart: React.FC<ProductFeatureProps> = ({ product }) => {
   const navigate = useNavigate();
   const cardRef = useRef(null);
 

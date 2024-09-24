@@ -1,29 +1,10 @@
 import { useEffect, useState } from "react";
+import fitnessFeture1 from "../../assets/images/feature/feature1.jpg";
+import fitnessFeture2 from "../../assets/images/feature/feature2.jpg";
+import fitnessFeture3 from "../../assets/images/feature/feature3.jpg";
+import fitnessFeture4 from "../../assets/images/feature/feature4.jpg";
+import fitnessFeture5 from "../../assets/images/feature/feature5.jpg";
 import "../../styles/hrtag.css";
-import ProductsCart from "../../utils/ProductsCart";
-
-const products = [
-  {
-    id: 1,
-    name: "Product 1",
-    price: 29.99,
-    image:
-      "https://i.ibb.co.com/TRwD8FP/gym-with-weight-bar-that-says-arc-fix-it-886336-784.jpg",
-  },
-  {
-    id: 2,
-    name: "Product 2",
-    price: 49.99,
-    image:
-      "https://i.ibb.co.com/TRwD8FP/gym-with-weight-bar-that-says-arc-fix-it-886336-784.jpg",
-  },
-  {
-    id: 3,
-    name: "Product 3",
-    price: 19.99,
-    image: "https://i.ibb.co.com/r5688R2/equipment-6-removebg-preview.png",
-  },
-];
 
 const FeaturedProducts = () => {
   const [visible, setVisible] = useState(false);
@@ -42,10 +23,96 @@ const FeaturedProducts = () => {
       </h1>
       <hr className={`mx-auto hr-animation ${visible ? "visible" : ""}`} />
 
-      <div className="grid mt-20 grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        {products.map((product) => (
-          <ProductsCart key={product.id} product={product} />
-        ))}
+      <div className="mt-20">
+        <div className="flex gap-6 ">
+          <div className="relative w-full h-[350px] group">
+            {/* Add group for hover effects */}
+            <img
+              src={fitnessFeture1}
+              alt="Fitness Feature"
+              className="w-full h-full object-cover"
+            />
+            <p className="text-4xl uppercase Oswald font-bold absolute inset-0 flex justify-center items-center text-white opacity-100 group-hover:opacity-0 transition-opacity duration-300">
+              Cast Iron & Bumper Plates
+            </p>
+            <div className="absolute inset-0 flex flex-col justify-center items-center text-white bg-black bg-opacity-50 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+              <button className="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transform transition-transform duration-300 group-hover:scale-105">
+                {/* Button animation */}
+                Explore More
+              </button>
+            </div>
+          </div>
+          <div className="relative w-full h-[350px] group">
+            {/* Add group for hover effects */}
+            <img
+              src={fitnessFeture2}
+              alt="Fitness Feature"
+              className="w-full h-full object-cover"
+            />
+            <p className="text-4xl uppercase Oswald font-bold absolute inset-0 flex justify-center items-center text-white opacity-100 group-hover:opacity-0 transition-opacity duration-300">
+              Hex Dumbbells
+            </p>
+            <div className="absolute inset-0 flex flex-col justify-center items-center text-white bg-black bg-opacity-50 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+              <button className="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transform transition-transform duration-300 group-hover:scale-105">
+                {/* Button animation */}
+                Explore More
+              </button>
+            </div>
+          </div>
+        </div>
+        <div className="relative w-full my-5 h-[350px] group">
+          {/* Add group for hover effects */}
+          <img
+            src={fitnessFeture3}
+            alt="Fitness Feature"
+            className="w-full h-full bg-cover object-cover"
+          />
+          <p className="text-4xl uppercase Oswald font-bold absolute inset-0 flex justify-center items-center text-white opacity-100 group-hover:opacity-0 transition-opacity duration-300">
+            olympic barbells
+          </p>
+          <div className="absolute inset-0 flex flex-col justify-center items-center text-white bg-black bg-opacity-50 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+            <button className="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transform transition-transform duration-300 group-hover:scale-105">
+              {/* Button animation */}
+              Explore More
+            </button>
+          </div>
+        </div>
+        <div className="flex gap-6 ">
+          <div className="relative w-full h-[350px] group">
+            {/* Add group for hover effects */}
+            <img
+              src={fitnessFeture4}
+              alt="Fitness Feature"
+              className="w-full h-full bg-cover object-cover"
+            />
+            <p className="text-4xl uppercase Oswald font-bold absolute inset-0 flex justify-center items-center text-white opacity-100 group-hover:opacity-0 transition-opacity duration-300">
+              rigs & ricks
+            </p>
+            <div className="absolute inset-0 flex flex-col justify-center items-center text-white bg-black bg-opacity-50 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+              <button className="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transform transition-transform duration-300 group-hover:scale-105">
+                {/* Button animation */}
+                Explore More
+              </button>
+            </div>
+          </div>
+          <div className="relative w-full h-[350px] group">
+            {/* Add group for hover effects */}
+            <img
+              src={fitnessFeture5}
+              alt="Fitness Feature"
+              className="w-full h-full bg-cover object-cover"
+            />
+            <p className="text-4xl uppercase Oswald font-bold absolute inset-0 flex justify-center items-center text-white opacity-100 group-hover:opacity-0 transition-opacity duration-300">
+              benches
+            </p>
+            <div className="absolute inset-0 flex flex-col justify-center items-center text-white bg-black bg-opacity-50 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+              <button className="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transform transition-transform duration-300 group-hover:scale-105">
+                {/* Button animation */}
+                Explore More
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
