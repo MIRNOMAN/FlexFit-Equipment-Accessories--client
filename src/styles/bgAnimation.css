@@ -1,0 +1,17 @@
+@keyframes bgColorSlide {
+  0% {
+    background-position: 100% 0; /* Start from the left */
+  }
+  50% {
+    background-position: 0 0; /* Slide to the right */
+  }
+  100% {
+    background-position: 100% 0; /* Return to the left */
+  }
+}
+
+.animate-bg-slide {
+  background: linear-gradient(to right, #000000, #4b5563, #4b5563, #000000);
+  background-size: 200% 100%; /* Double the size for smooth sliding */
+  animation: bgColorSlide 10s infinite; /* Increased duration for smoother animation */
+}

@@ -1,8 +1,9 @@
 import logo from "../assets/icons/navber_logo.png";
+import "../styles/bgAnimation.css";
 
 const Footer = () => {
   return (
-    <footer className="bg-gray-900 px-8 text-gray-400 py-8">
+    <footer className=" px-8 py-8  animate-bg-slide">
       <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
         {/* Logo Section */}
         <div className="mb-6">
@@ -11,13 +12,13 @@ const Footer = () => {
             alt="Company Logo"
             className="h-[80px] mb-4 bg-white p-2 rounded-md"
           />
-          <p className="text-gray-400">
+          <p className="text-gray-300 font-medium">
             Your trusted company for quality services.
           </p>
         </div>
 
         {/* Contact Information */}
-        <div className="mb-6">
+        <div className="mb-6 text-gray-300 font-medium">
           <h4 className="text-lg text-white font-semibold mb-4">Contact Us</h4>
           <p className="mb-2">Email: abdullahalnoman1509@gmail.com</p>
           <p className="mb-2">Phone: +8801798341509</p>
@@ -127,7 +128,7 @@ const Footer = () => {
         </div>
 
         {/* Relevant Links */}
-        <div>
+        <div className="text-gray-300 font-medium">
           <h4 className="text-lg text-white font-semibold mb-4">
             Useful Links
           </h4>
@@ -158,7 +159,7 @@ const Footer = () => {
 
       {/* Bottom section */}
       <div className="mt-5 border-t border-gray-700 pt-4 text-center">
-        <p className="text-sm">
+        <p className="text-sm text-gray-300 font-medium">
           &copy; 2024 Your Company. All Rights Reserved.
         </p>
       </div>
