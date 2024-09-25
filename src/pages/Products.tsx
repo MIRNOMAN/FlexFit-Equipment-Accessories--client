@@ -61,68 +61,64 @@ const Products: React.FC = () => {
   });
 
   return (
-    <div className="mx-auto max-w-7xl mb-10">
-      <div className="flex gap-4">
-        <div className="w-1/4 mt-10">
-          <div className="">
-            <h1 className="lg:text-end text-center mb-3 text-2xl font-medium">
-              Search Your Product
-            </h1>
-          </div>
-          <div className="">
-            <div className="p-6 mt-10 bg-white rounded-lg shadow-md">
-              <h2 className="text-lg font-semibold flex items-center">
-                <FaFilter className="mr-2" />
-                Filters
-              </h2>
+    <div className="mx-auto max-w-7xl mb-10 p-4">
+      <div className="flex flex-col lg:flex-row gap-4">
+        <div className="lg:w-1/4 mt-10 mx-auto lg:mx-0">
+          <h1 className="text-center lg:text-end mb-3 text-2xl font-medium">
+            Search Your Product
+          </h1>
+          <div className="p-6 mt-10 bg-white rounded-lg shadow-md">
+            <h2 className="text-lg font-semibold flex items-center">
+              <FaFilter className="mr-2" />
+              Filters
+            </h2>
 
-              <div className="mt-4">
-                <h3 className="font-semibold">Categories</h3>
-                <div className="flex flex-col mt-2">
-                  {categories.map((category) => (
-                    <label key={category.id} className="flex items-center">
-                      <input
-                        type="checkbox"
-                        className="mr-2"
-                        checked={selectedCategories.includes(category.name)}
-                        onChange={() => toggleCategory(category.name)}
-                      />
-                      {category.name}
-                    </label>
-                  ))}
-                </div>
+            <div className="mt-4">
+              <h3 className="font-semibold">Categories</h3>
+              <div className="flex flex-col mt-2">
+                {categories.map((category) => (
+                  <label key={category.id} className="flex items-center">
+                    <input
+                      type="checkbox"
+                      className="mr-2"
+                      checked={selectedCategories.includes(category.name)}
+                      onChange={() => toggleCategory(category.name)}
+                    />
+                    {category.name}
+                  </label>
+                ))}
               </div>
+            </div>
 
-              <div className="mt-4">
-                <h3 className="font-semibold">Price Range</h3>
-                <div className="flex flex-col mt-2">
-                  <label className="flex items-center">
-                    <span className="mr-2">Min:</span>
-                    <input
-                      type="number"
-                      name="min"
-                      value={priceRange[0]}
-                      onChange={handlePriceChange}
-                      className="border border-gray-300 rounded px-2 py-1"
-                    />
-                  </label>
-                  <label className="flex items-center mt-2">
-                    <span className="mr-2">Max:</span>
-                    <input
-                      type="number"
-                      name="max"
-                      value={priceRange[1]}
-                      onChange={handlePriceChange}
-                      className="border border-gray-300 rounded px-2 py-1"
-                    />
-                  </label>
-                </div>
+            <div className="mt-4">
+              <h3 className="font-semibold">Price Range</h3>
+              <div className="flex flex-col mt-2">
+                <label className="flex items-center">
+                  <span className="mr-2">Min:</span>
+                  <input
+                    type="number"
+                    name="min"
+                    value={priceRange[0]}
+                    onChange={handlePriceChange}
+                    className="border border-gray-300 rounded px-2 py-1"
+                  />
+                </label>
+                <label className="flex items-center mt-2">
+                  <span className="mr-2">Max:</span>
+                  <input
+                    type="number"
+                    name="max"
+                    value={priceRange[1]}
+                    onChange={handlePriceChange}
+                    className="border border-gray-300 rounded px-2 py-1"
+                  />
+                </label>
               </div>
             </div>
           </div>
         </div>
-        <div className="w-3/4">
-          <div className="flex items-center mt-7 justify-around">
+        <div className="lg:w-3/4 mx-auto">
+          <div className="flex items-center mt-7 justify-between flex-wrap">
             <div className="relative w-full max-w-md">
               <input
                 type="text"
@@ -133,7 +129,7 @@ const Products: React.FC = () => {
               />
               <FaSearch className="absolute left-4 top-3 text-gray-500" />
             </div>
-            <div className="flex items-center space-x-4">
+            <div className="flex items-center space-x-4 mt-4 lg:mt-0">
               <label className="text-gray-700 font-semibold">
                 Sort by Price:
               </label>
@@ -145,13 +141,13 @@ const Products: React.FC = () => {
                 <option value="ascending">Ascending</option>
                 <option value="descending">Descending</option>
               </select>
+              <button
+                onClick={handleClearFilters}
+                className="bg-red-500 text-white rounded-md px-4 py-2 hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-300"
+              >
+                Clear Filter
+              </button>
             </div>
-            <button
-              onClick={handleClearFilters}
-              className="bg-red-500 text-white rounded-md px-4 py-2 hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-300"
-            >
-              Clear Filter
-            </button>
           </div>
 
           <div className="mt-10">
