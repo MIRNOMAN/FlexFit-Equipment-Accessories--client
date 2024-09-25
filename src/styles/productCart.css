@@ -1,0 +1,20 @@
+/* product  */
+.product-btn {
+  padding: 7px 13px;
+  font-size: 12px;
+}
+.product .images {
+  position: relative;
+  overflow: hidden;
+}
+
+.product.card .overlay {
+  opacity: 0;
+  transition: transform 0.3s ease;
+  transform: translateY(100%);
+}
+
+.product.card:hover .overlay {
+  opacity: 1;
+  transform: translateY(0);
+}
