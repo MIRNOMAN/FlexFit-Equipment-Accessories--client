@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import fitnessFeture1 from "../../assets/images/feature/feature1.jpg";
 import fitnessFeture2 from "../../assets/images/feature/feature2.jpg";
 import fitnessFeture6 from "../../assets/images/feature/feature6.jpg";
@@ -8,6 +9,7 @@ import "../../styles/hrtag.css";
 
 const FeaturedProducts = () => {
   const [visible, setVisible] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -17,9 +19,13 @@ const FeaturedProducts = () => {
     return () => clearTimeout(timer);
   }, []);
 
+  const handleProductsClick = () => {
+    navigate(`/products`);
+  };
+
   return (
     <div className="mx-auto max-w-6xl my-20 relative px-4">
-      <h1 className="text-center font-oswald text-xl md:text-2xl lg:text-3xl font-semibold tracking-widest">
+      <h1 className="text-center font-oswald text-sm md:text-base lg:text-xl font-semibold tracking-widest">
         EXCLUSIVE FEATURES
       </h1>
       <hr className={`mx-auto hr-animation ${visible ? "visible" : ""}`} />
@@ -32,11 +38,14 @@ const FeaturedProducts = () => {
               alt="Fitness Feature"
               className="w-full h-full object-cover"
             />
-            <p className="lg:text-2xl text-base md:text-xl uppercase Oswald font-bold absolute inset-0 flex justify-center items-center text-white opacity-100 group-hover:opacity-0 transition-opacity duration-300">
+            <p className="lg:text-3xl text-base md:text-xl uppercase Oswald font-bold absolute inset-0 flex justify-center items-center text-white opacity-100 group-hover:opacity-0 transition-opacity duration-300">
               Cast Iron & Bumper Plates
             </p>
             <div className="absolute inset-0 flex flex-col justify-center items-center text-white bg-black bg-opacity-50 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-              <button className="mt-4 px-4 py-2 bg-blue-600 bg-opacity-50 text-white rounded hover:bg-opacity-100 hover:bg-blue-700 transform transition-transform duration-300 group-hover:scale-105">
+              <button
+                onClick={handleProductsClick}
+                className="mt-4 px-4 py-2 bg-blue-600 bg-opacity-50 text-white rounded hover:bg-opacity-100 hover:bg-blue-700 transform transition-transform duration-300 group-hover:scale-105"
+              >
                 Explore More
               </button>
             </div>
@@ -48,11 +57,14 @@ const FeaturedProducts = () => {
               alt="Fitness Feature"
               className="w-full h-full object-cover"
             />
-            <p className="lg:text-2xl text-base md:text-xl uppercase Oswald font-bold absolute inset-0 flex justify-center items-center text-white opacity-100 group-hover:opacity-0 transition-opacity duration-300">
+            <p className="lg:text-3xl text-base md:text-xl uppercase Oswald font-bold absolute inset-0 flex justify-center items-center text-white opacity-100 group-hover:opacity-0 transition-opacity duration-300">
               Hex Dumbbells
             </p>
             <div className="absolute inset-0 flex flex-col justify-center items-center text-white bg-black bg-opacity-50 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-              <button className="mt-4 px-4 py-2 bg-blue-600 bg-opacity-50 text-white rounded hover:bg-opacity-100 hover:bg-blue-700 transform transition-transform duration-300 group-hover:scale-105">
+              <button
+                onClick={handleProductsClick}
+                className="mt-4 px-4 py-2 bg-blue-600 bg-opacity-50 text-white rounded hover:bg-opacity-100 hover:bg-blue-700 transform transition-transform duration-300 group-hover:scale-105"
+              >
                 Explore More
               </button>
             </div>
@@ -65,11 +77,14 @@ const FeaturedProducts = () => {
             alt="Fitness Feature"
             className="w-full h-full bg-cover object-cover"
           />
-          <p className="lg:text-2xl text-base md:text-xl uppercase Oswald font-bold absolute inset-0 flex justify-center items-center text-white opacity-100 group-hover:opacity-0 transition-opacity duration-300">
+          <p className="lg:text-3xl text-base md:text-xl uppercase Oswald font-bold absolute inset-0 flex justify-center items-center text-white opacity-100 group-hover:opacity-0 transition-opacity duration-300">
             Olympic Barbells
           </p>
           <div className="absolute inset-0 flex flex-col justify-center items-center text-white bg-black bg-opacity-50 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-            <button className="mt-4 px-4 py-2 bg-blue-600 bg-opacity-50 text-white rounded hover:bg-opacity-100 hover:bg-blue-700 transform transition-transform duration-300 group-hover:scale-105">
+            <button
+              onClick={handleProductsClick}
+              className="mt-4 px-4 py-2 bg-blue-600 bg-opacity-50 text-white rounded hover:bg-opacity-100 hover:bg-blue-700 transform transition-transform duration-300 group-hover:scale-105"
+            >
               Explore More
             </button>
           </div>
@@ -82,11 +97,14 @@ const FeaturedProducts = () => {
               alt="Fitness Feature"
               className="w-full h-full bg-cover object-cover"
             />
-            <p className="lg:text-2xl text-base md:text-xl uppercase Oswald font-bold absolute inset-0 flex justify-center items-center text-white opacity-100 group-hover:opacity-0 transition-opacity duration-300">
+            <p className="lg:text-3xl text-base md:text-xl uppercase Oswald font-bold absolute inset-0 flex justify-center items-center text-white opacity-100 group-hover:opacity-0 transition-opacity duration-300">
               Rigs & Racks
             </p>
             <div className="absolute inset-0 flex flex-col justify-center items-center text-white bg-black bg-opacity-50 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-              <button className="mt-4 px-4 py-2 bg-blue-600 bg-opacity-50 text-white rounded hover:bg-opacity-100 hover:bg-blue-700 transform transition-transform duration-300 group-hover:scale-105">
+              <button
+                onClick={handleProductsClick}
+                className="mt-4 px-4 py-2 bg-blue-600 bg-opacity-50 text-white rounded hover:bg-opacity-100 hover:bg-blue-700 transform transition-transform duration-300 group-hover:scale-105"
+              >
                 Explore More
               </button>
             </div>
@@ -98,11 +116,14 @@ const FeaturedProducts = () => {
               alt="Fitness Feature"
               className="w-full h-full bg-cover object-cover"
             />
-            <p className="lg:text-2xl text-base md:text-xl uppercase Oswald font-bold absolute inset-0 flex justify-center items-center text-white opacity-100 group-hover:opacity-0 transition-opacity duration-300">
+            <p className="lg:text-3xl text-base md:text-xl uppercase Oswald font-bold absolute inset-0 flex justify-center items-center text-white opacity-100 group-hover:opacity-0 transition-opacity duration-300">
               Benches
             </p>
             <div className="absolute inset-0 flex flex-col justify-center items-center text-white bg-black bg-opacity-50 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-              <button className="mt-4 px-4 py-2 bg-blue-600 bg-opacity-50 text-white rounded hover:bg-opacity-100 hover:bg-blue-700 transform transition-transform duration-300 group-hover:scale-105">
+              <button
+                onClick={handleProductsClick}
+                className="mt-4 px-4 py-2 bg-blue-600 bg-opacity-50 text-white rounded hover:bg-opacity-100 hover:bg-blue-700 transform transition-transform duration-300 group-hover:scale-105"
+              >
                 Explore More
               </button>
             </div>
