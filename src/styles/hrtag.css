@@ -1,6 +1,6 @@
 /* styles.css or your existing stylesheet */
 .hr-animation {
-  width: 30%;
+  width: 25%;
   height: 2px; /* Adjust the thickness */
   background-color: #000; /* Change to your preferred color */
   opacity: 0; /* Start invisible */

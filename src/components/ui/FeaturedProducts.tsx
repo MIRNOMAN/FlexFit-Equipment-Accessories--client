@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import fitnessFeture1 from "../../assets/images/feature/feature1.jpg";
 import fitnessFeture2 from "../../assets/images/feature/feature2.jpg";
-import fitnessFeture3 from "../../assets/images/feature/feature3.jpg";
+import fitnessFeture6 from "../../assets/images/feature/feature6.jpg";
 import fitnessFeture4 from "../../assets/images/feature/feature4.jpg";
 import fitnessFeture5 from "../../assets/images/feature/feature5.jpg";
 import "../../styles/hrtag.css";
@@ -19,7 +19,7 @@ const FeaturedProducts = () => {
   return (
     <div className="mx-auto max-w-6xl my-20  relative">
       <h1 className="text-center font-oswald text-xl font-semibold tracking-widest">
-        EXCLUSIVE OUTLET DEALS
+        EXCLUSIVE FEATURES
       </h1>
       <hr className={`mx-auto hr-animation ${visible ? "visible" : ""}`} />
 
@@ -63,7 +63,7 @@ const FeaturedProducts = () => {
         <div className="relative w-full my-5 h-[350px] group">
           {/* Add group for hover effects */}
           <img
-            src={fitnessFeture3}
+            src={fitnessFeture6}
             alt="Fitness Feature"
             className="w-full h-full bg-cover object-cover"
           />
