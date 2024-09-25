@@ -19,11 +19,12 @@ const ImageGallery = () => {
   return (
     <section className="mx-auto max-w-6xl my-20 py-8">
       <div className="container mx-auto">
-        <h2 className="text-3xl font-bold text-center text-gray-800 mb-6">
-          Mosaic View
-        </h2>
+        <h1 className="text-center uppercase font-oswald text-sm md:text-base lg:text-2xl font-semibold tracking-widest">
+          EXCLUSIVE Mosaic View
+        </h1>
+        <hr className="mx-auto h-[2px] bg-black opacity-100 w-[70%] md:w-[34%] lg:w-[36%]" />
 
-        <div className="grid-wrapper">
+        <div className="grid-wrapper mt-14">
           <div className="wide">
             <img src={galleryPicture1} alt="Gallery Image 1" />
           </div>

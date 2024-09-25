@@ -38,3 +38,35 @@ img {
   grid-column: span 2;
   grid-row: span 2;
 }
+
+/* Tablet Devices (768px and up) */
+@media (max-width: 1024px) {
+  .grid-wrapper {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-auto-rows: 180px;
+  }
+
+  .grid-wrapper .wide,
+  .grid-wrapper .big {
+    grid-column: span 2;
+  }
+
+  .grid-wrapper .tall {
+    grid-row: span 1;
+  }
+}
+
+/* Mobile Devices (480px and below) */
+@media (max-width: 768px) {
+  .grid-wrapper {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    grid-auto-rows: 150px;
+  }
+
+  .grid-wrapper .wide,
+  .grid-wrapper .big,
+  .grid-wrapper .tall {
+    grid-column: span 1;
+    grid-row: span 1;
+  }
+}
