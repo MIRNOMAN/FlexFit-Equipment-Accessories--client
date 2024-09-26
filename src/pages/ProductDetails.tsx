@@ -1,27 +1,57 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { productsData } from "../assets/data/Productdata.js";
+import { useGetProductByIdQuery } from "../redux/api/productApi.js";
 
 const ProductDetails = () => {
-  const { id } = useParams<{ id: string }>(); // Get product ID from URL
-  const product = productsData.find((item) => item.id === Number(id)); // Fetch product based on ID
-  console.log(product);
+  const [mainImage, setMainImage] = useState<string>("");
+  const { _id } = useParams<{ _id: string }>(); // Get product ID from URL
 
-  const [mainImage, setMainImage] = useState<string>(product?.images[0] || "");
+  const { data: productData, error, isLoading } = useGetProductByIdQuery(_id);
 
+  useEffect(() => {
+    if (productData?.data?.images && productData?.data?.images.length > 0) {
+      setMainImage(productData?.data?.images[0]); // Set the first image as the main image
+    }
+  }, [productData?.data?.images]);
+
+  console.log(productData?.data?.images);
+  console.log(mainImage);
   const changeImage = (src: string) => {
     setMainImage(src);
   };
 
-  useEffect(() => {
-    if (product) {
-      setMainImage(product.images[0]); // Set the main image when product is available
-    }
-  }, [product]);
-
-  if (!product) {
-    return <div className="text-center">Product not found</div>; // Handle case where product is not found
+  // Handle loading and error states
+  if (isLoading) {
+    return <div>Loading...</div>;
   }
+
+  if (error) {
+    return <div>Error loading product details. Please try again later.</div>;
+  }
+
+  if (!productData) {
+    return <div>Product not found.</div>;
+  }
+
+  if (!productData) {
+    return <div className="text-center">Product not found</div>;
+  }
+  // Fetch product based on ID
+  // const product = productData?.data?.find(
+  //   (item: { id: number }) => item.id === Number(_id)
+  // );
+
+  const product = productData.data;
+
+  // useEffect(() => {
+  //   if (product?.images && product?.images.length > 0) {
+  //     setMainImage(product?.images[0]); // Set the main image when product is available
+  //   }
+  // }, [product]);
+
+  // useEffect(() => {
+  //   setMainImage(product.images[0]); // Set the main image when product is available
+  // }, [product]);
 
   return (
     <div className="bg-gray-100">
@@ -36,7 +66,7 @@ const ProductDetails = () => {
               id="mainImage"
             />
             <div className="flex gap-4 py-4 justify-center overflow-x-auto">
-              {product?.images?.map((image, index) => (
+              {product?.images.map((image: string, index: number) => (
                 <img
                   key={index}
                   src={image}
@@ -56,7 +86,6 @@ const ProductDetails = () => {
             </div>
 
             <p className="text-gray-700 mb-6">
-              {" "}
               Stock: {product?.stockQuantity}
             </p>
             <p className="text-gray-700 mb-6">{product?.description}</p>

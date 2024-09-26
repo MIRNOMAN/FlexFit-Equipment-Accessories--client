@@ -1,28 +1,24 @@
-import { productsData } from "../assets/data/Productdata.js";
 import "../styles/productCart.css";
-
 import React, { useState } from "react";
 import ProductCart from "../utils/ProductCart.js";
 import { FaFilter, FaSearch } from "react-icons/fa";
-import { Product, ProductCartProps } from "../types/productcartType.js";
-
-const categories = [
-  { id: 1, name: "Cardio" },
-  { id: 2, name: "Strength" },
-  { id: 3, name: "Yoga" },
-  { id: 4, name: "Pilates" },
-];
+import { ProductCartProps, TProduct } from "../types/productcartType.js";
+import { useGetProductsQuery } from "../redux/api/productApi.js";
 
 const Products: React.FC = () => {
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
-  const [priceRange, setPriceRange] = useState<number[]>([0, 100]);
+  const [priceRange, setPriceRange] = useState<number[]>([10, 500]);
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [sortOrder, setSortOrder] = useState<string>("ascending");
+  const { data: product, error, isLoading } = useGetProductsQuery({});
+  const products: TProduct[] = product?.data || [];
+
+  console.log(products);
 
   const toggleCategory = (category: string) => {
     setSelectedCategories((prev) =>
       prev.includes(category)
-        ? prev.filter((item) => item !== category)
+        ? prev.filter((name) => name !== category)
         : [...prev, category]
     );
   };
@@ -36,29 +32,42 @@ const Products: React.FC = () => {
 
   const handleClearFilters = () => {
     setSelectedCategories([]);
-    setPriceRange([10, 100]);
+    setPriceRange([0, 100]);
     setSearchQuery("");
     setSortOrder("ascending");
   };
 
   // Filter products based on selected filters
-  const filteredProducts = productsData.filter((product: Product) => {
+  const filteredProducts = products?.filter((product: TProduct) => {
     const matchesCategory =
       selectedCategories.length === 0 ||
-      selectedCategories.includes(product.category);
+      selectedCategories.includes(product.name);
     const matchesPrice =
       product.price >= priceRange[0] && product.price <= priceRange[1];
-    const matchesSearch = product.name
-      .toLowerCase()
-      .includes(searchQuery.toLowerCase());
+
+    // Normalize both searchQuery and product name by removing spaces
+    const normalizedSearchQuery = searchQuery.replace(/\s+/g, "").toLowerCase();
+    const normalizedProductName = product.name
+      .replace(/\s+/g, "")
+      .toLowerCase();
+
+    const matchesSearch = normalizedProductName.includes(normalizedSearchQuery);
 
     return matchesCategory && matchesPrice && matchesSearch;
   });
 
   // Sort products based on price
-  const sortedProducts = filteredProducts.sort((a: Product, b: Product) => {
+  const sortedProducts = filteredProducts?.sort((a: TProduct, b: TProduct) => {
     return sortOrder === "ascending" ? a.price - b.price : b.price - a.price;
   });
+
+  if (isLoading) {
+    return <p>Loading...</p>;
+  }
+
+  if (error) {
+    return <p>Something went wrong: {error.message}</p>;
+  }
 
   return (
     <div className="mx-auto max-w-7xl mb-10 p-4">
@@ -76,7 +85,7 @@ const Products: React.FC = () => {
             <div className="mt-4">
               <h3 className="font-semibold">Categories</h3>
               <div className="flex flex-col mt-2">
-                {categories.map((category) => (
+                {products.map((category) => (
                   <label key={category.id} className="flex items-center">
                     <input
                       type="checkbox"
@@ -152,15 +161,19 @@ const Products: React.FC = () => {
 
           <div className="mt-10">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {sortedProducts.map((product: ProductCartProps) => (
-                <ProductCart
-                  key={product.id}
-                  id={product.id}
-                  name={product.name}
-                  price={product.price}
-                  images={product.images}
-                />
-              ))}
+              {sortedProducts?.length > 0 ? (
+                sortedProducts?.map((product: ProductCartProps) => (
+                  <ProductCart
+                    key={product._id}
+                    _id={product._id}
+                    name={product.name}
+                    price={product.price}
+                    images={product.images}
+                  />
+                ))
+              ) : (
+                <p>No products found.</p>
+              )}
             </div>
           </div>
         </div>

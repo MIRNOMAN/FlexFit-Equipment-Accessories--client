@@ -1,5 +1,7 @@
-export type Product = {
-  id: number;
+export type TProduct = {
+  key: string; // This is not required as a prop, but will be used in map
+  _id: string;
+  id: string;
   name: string;
   price: number;
   stockQuantity: number;
@@ -9,7 +11,8 @@ export type Product = {
 };
 
 export type ProductCartProps = {
-  id: string;
+  key: string; // This is not required as a prop, but will be used in map
+  _id: string; // Ensure _id is included
   name: string;
   price: number;
   images: string[];

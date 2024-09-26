@@ -1,21 +1,14 @@
 import { IoCart } from "react-icons/io5";
 import "../styles/productCart.css";
 import { ProductCartProps } from "../types/productcartType";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const ProductCart: React.FC<ProductCartProps> = ({
-  id,
+  _id,
   name,
   price,
   images,
 }) => {
-  const navigate = useNavigate();
-
-  const handleQuickView = (id) => {
-    // Navigate to the product details page
-    navigate(`/productdetails/${id}`);
-  };
-
   const addToCart = () => {
     console.log("Add to cart");
   };
@@ -45,12 +38,11 @@ const ProductCart: React.FC<ProductCartProps> = ({
           <h5 className="text-base font-semibold  text-slate-900">{name}</h5>
 
           <div className="opacity-0 hover:opacity-100 transition-all duration-300 flex items-center gap-2 justify-center absolute bottom-0 left-0 right-0 hover:bottom-2 m-5">
-            <button
-              onClick={handleQuickView}
-              className="quick-view-btn product-btn primary-btn h-10 w-32"
-            >
-              Quick view
-            </button>
+            <Link to={`/productdetails/${_id}`}>
+              <button className="quick-view-btn product-btn primary-btn h-10 w-32">
+                Quick view
+              </button>
+            </Link>
             <button
               className="add-to-cart-btn product-btn primary-btn h-10 w-32"
               onClick={addToCart}
