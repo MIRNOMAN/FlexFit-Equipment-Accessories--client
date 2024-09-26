@@ -28,12 +28,9 @@ const ProductCart: React.FC<ProductCartProps> = ({ name, price, images }) => {
         <span className="absolute top-0 left-0 w-28 translate-y-4 -translate-x-6 -rotate-45 bg-black text-center text-sm text-white">
           Sale
         </span>
-        <div className="mt-4 px-5 pb-5">
-          <a href="#">
-            <h5 className="text-xl font-semibold tracking-tight text-slate-900">
-              {name}
-            </h5>
-          </a>
+        <div className="mt-2 px-5">
+          <h5 className="text-base font-semibold  text-slate-900">{name}</h5>
+
           <div className="opacity-0 hover:opacity-100 transition-all duration-300 flex items-center gap-2 justify-center absolute bottom-0 left-0 right-0 hover:bottom-2 m-5">
             <button className="quick-view-btn product-btn primary-btn h-10 w-32">
               Quick view
@@ -47,7 +44,7 @@ const ProductCart: React.FC<ProductCartProps> = ({ name, price, images }) => {
           </div>
           <div className="flex items-center justify-between">
             <p>
-              <span className="text-3xl font-bold text-slate-900">
+              <span className="text-lg font-bold text-slate-900">
                 ${price?.toFixed(2)}
               </span>
             </p>

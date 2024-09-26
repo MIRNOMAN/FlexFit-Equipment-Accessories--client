@@ -36,7 +36,7 @@ const Products: React.FC = () => {
 
   const handleClearFilters = () => {
     setSelectedCategories([]);
-    setPriceRange([0, 100]);
+    setPriceRange([10, 100]);
     setSearchQuery("");
     setSortOrder("ascending");
   };
@@ -64,10 +64,10 @@ const Products: React.FC = () => {
     <div className="mx-auto max-w-7xl mb-10 p-4">
       <div className="flex flex-col lg:flex-row gap-4">
         <div className="lg:w-1/4 mt-10 mx-auto lg:mx-0">
-          <h1 className="text-center lg:text-end mb-3 text-2xl font-medium">
+          <h1 className="text-center mb-3 text-2xl font-semibold">
             Search Your Product
           </h1>
-          <div className="p-6 mt-10 bg-white rounded-lg shadow-md">
+          <div className="p-6 mt-10 bg-white border-1 rounded-lg shadow-md">
             <h2 className="text-lg font-semibold flex items-center">
               <FaFilter className="mr-2" />
               Filters
