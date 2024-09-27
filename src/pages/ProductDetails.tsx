@@ -45,22 +45,22 @@ const ProductDetails = () => {
 
   // Find the product in the cart
   const cartItem = cartItems.find((item: any) => item._id === product._id);
-  const productQuantityInCart = cartItem ? cartItem.quantity : 0;
+  const productQuantityInCart = cartItem ? cartItem.stockQuantity : 0;
 
   const handleAddToCart = (e: any, product: any) => {
     e.stopPropagation();
 
     const totalQuantityInCart = productQuantityInCart + 1;
-    if (totalQuantityInCart > product.quantity) {
+    if (totalQuantityInCart > product.stockQuantity) {
       alert("Not enough product available!");
       return;
     }
 
     // Dispatch action to add the product to cart
-    dispatch(addToCart({ ...product, quantity: product.quantity })); // Pass the available quantity
+    dispatch(addToCart({ ...product, stockQuantity: product.stockQuantity })); // Pass the available quantity
   };
 
-  const isOutOfStock = productQuantityInCart >= product.quantity;
+  const isOutOfStock = productQuantityInCart >= product.stockQuantity;
 
   return (
     <div className="bg-gray-100">
@@ -131,12 +131,27 @@ const ProductDetails = () => {
             </div>
 
             <div>
-              <h3 className="text-lg font-semibold mb-2">Key Features:</h3>
-              <ul className="list-disc list-inside text-gray-700">
-                <li>Industry-leading noise cancellation</li>
-                <li>30-hour battery life</li>
-                <li>Touch sensor controls</li>
-                <li>Speak-to-chat technology</li>
+              <h3 className="text-lg font-semibold  mb-2">Key Features:</h3>
+              <ul className="list-disc list-inside  text-gray-700">
+                <li>
+                  Durable Build – Strong materials ensure long-lasting use.
+                </li>
+                <li>
+                  Adjustable Resistance – Multiple levels for all fitness
+                  abilities.
+                </li>
+                <li>
+                  Ergonomic Design – Comfortable and supportive during workouts.
+                </li>
+                <li>Compact & Foldable – Easy to store in small spaces.</li>
+                <li>Multi-Functionality – Supports various exercises.</li>
+                <li>
+                  Smart Connectivity – Syncs with apps and fitness trackers.
+                </li>
+                <li>Safety Features – Emergency stop and safety locks.</li>
+                <li>
+                  Warranty & Support – Backed by a manufacturer’s warranty.
+                </li>
               </ul>
             </div>
           </div>

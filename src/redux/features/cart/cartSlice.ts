@@ -5,7 +5,7 @@ type Product = {
   _id: string;
   name: string;
   price: number;
-  quantity: number;
+  stockQuantity: number;
 };
 
 type CartState = {
@@ -29,7 +29,7 @@ export const cartSlice = createSlice({
 
       if (existingProduct) {
         // If the product is already in the cart, increment its quantity
-        existingProduct.quantity += 1;
+        existingProduct.stockQuantity += 1;
       } else {
         // If the product is not in the cart, add it with a quantity of 1
         state.products.push({ ...action.payload, quantity: 1 });
@@ -46,12 +46,12 @@ export const cartSlice = createSlice({
       state.products = state.products.map((product) => {
         if (product._id === action.payload._id) {
           if (action.payload.type === "increment") {
-            product.quantity += 1;
+            product.stockQuantity += 1;
           } else if (
             action.payload.type === "decrement" &&
-            product.quantity > 0
+            product.stockQuantity > 0
           ) {
-            product.quantity -= 1;
+            product.stockQuantity -= 1;
           }
         }
         return product;
