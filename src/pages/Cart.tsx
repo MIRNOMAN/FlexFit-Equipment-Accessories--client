@@ -8,6 +8,7 @@ import {
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { useState } from "react";
 import Swal from "sweetalert2";
+import { toast } from "sonner";
 
 type CartItem = {
   _id: string;
@@ -69,10 +70,11 @@ const Cart = () => {
 
   const handleCheckout = () => {
     if (products.length === 0) {
-      alert("No products in cart to checkout"); // You can replace this with a toast
+      toast("No products in cart to checkout"); // You can replace this with a toast
       return;
     }
-    navigate("/checkout"); // Navigate to checkout page
+    navigate("/check-out"); // Navigate to checkout page
+    setIsOpen(!isOpen);
   };
   const totalPrice = products.reduce(
     (total: number, product: CartItem) =>

@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { useGetProductByIdQuery } from "../redux/api/productApi.js";
 import { useAppDispatch, useAppSelector } from "../redux/hooks.js";
 import { addToCart } from "../redux/features/cart/cartSlice.js";
+import { toast } from "sonner";
 
 const ProductDetails = () => {
   const dispatch = useAppDispatch();
@@ -55,7 +56,7 @@ const ProductDetails = () => {
       alert("Not enough product available!");
       return;
     }
-
+    toast.success("product added successfully");
     // Dispatch action to add the product to cart
     dispatch(
       addToCart({
