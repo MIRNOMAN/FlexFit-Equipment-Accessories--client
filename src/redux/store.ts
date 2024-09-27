@@ -14,6 +14,7 @@ import {
 import storage from "redux-persist/lib/storage";
 import { baseApi } from "./api/baseApi";
 import { productApi } from "./api/productApi";
+import { checkoutApi } from "./api/checkoutApi";
 
 const persistConfig = {
   key: "auth",
@@ -26,6 +27,7 @@ export const store = configureStore({
   reducer: {
     [baseApi.reducerPath]: baseApi.reducer,
     [productApi.reducerPath]: productApi.reducer,
+    [checkoutApi.reducerPath]: checkoutApi.reducer,
     cart: cartReducer,
     auth: persistedAuthReducer,
   },
@@ -36,7 +38,8 @@ export const store = configureStore({
       },
     })
       .concat(baseApi.middleware)
-      .concat(productApi.middleware),
+      .concat(productApi.middleware)
+      .concat(checkoutApi.middleware),
 });
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
