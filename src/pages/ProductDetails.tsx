@@ -131,7 +131,7 @@ const ProductDetails = () => {
             </div>
 
             <div>
-              <h3 className="text-lg font-semibold  mb-2">Key Features:</h3>
+              <h3 className="text-lg font-semibold mb-2">Key Features:</h3>
               <ul className="list-disc list-inside  text-gray-700">
                 <li>
                   Durable Build – Strong materials ensure long-lasting use.
