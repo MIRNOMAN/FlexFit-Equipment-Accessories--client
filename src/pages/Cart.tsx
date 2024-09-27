@@ -1,21 +1,99 @@
+import { useNavigate } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../redux/hooks"; // Adjust the import path as needed
+import {
+  updateQuantity,
+  deleteFromCart,
+  clearCart,
+} from "../redux/features/cart/cartSlice"; // Adjust the import path as needed
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { useState } from "react";
+import Swal from "sweetalert2";
+
+type CartItem = {
+  _id: string;
+  name: string;
+  price: number;
+  stockQuantity: number;
+  description?: string;
+  images?: string;
+};
 
 const Cart = () => {
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
+  // Get products from the cart slice in the Redux store
+  const products: CartItem[] = useAppSelector((store) => store.cart.products);
   const [isOpen, setIsOpen] = useState(false);
+  console.log(products);
 
   const toggleSlideOver = () => {
     setIsOpen(!isOpen);
   };
+
+  const handleQuantity = (
+    type: "increment" | "decrement",
+    _id: string,
+    quantity: number
+  ) => {
+    if (type === "decrement" && quantity === 1) return;
+    const payload = { type, _id };
+    dispatch(updateQuantity(payload));
+  };
+
+  const handleDelete = (_id: string) => {
+    // Use a modal or toast for confirmation instead of window.confirm
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          title: "Deleted!",
+          text: "Your file has been deleted.",
+          icon: "success",
+        });
+        dispatch(deleteFromCart(_id));
+      }
+    });
+  };
+
+  const handleClearCart = () => {
+    dispatch(clearCart());
+  };
+
+  const handleCheckout = () => {
+    if (products.length === 0) {
+      alert("No products in cart to checkout"); // You can replace this with a toast
+      return;
+    }
+    navigate("/checkout"); // Navigate to checkout page
+  };
+  const totalPrice = products.reduce(
+    (total: number, product: CartItem) =>
+      total + product.price * product.stockQuantity,
+    0
+  );
+
   return (
     <>
       {/* Button to open the slide-over */}
       <button
         onClick={toggleSlideOver}
-        className="bg-indigo-600 text-white px-4 py-2 rounded"
+        className="py-4 px-1 relative border-2 border-transparent rounded-full hover:text-gray-400 focus:outline-none focus:text-gray-500 transition duration-150 ease-in-out"
       >
-        Open Cart
+        <ShoppingCartIcon sx={{ fontSize: "30px" }} />
+        <span className="absolute inset-0 object-right-top -mr-6">
+          <div className="inline-flex items-center px-1.5 py-0.5 border-2 border-white rounded-full text-xs font-semibold leading-4 bg-red-500 text-white">
+            {products.length}
+          </div>
+        </span>
       </button>
-
       {/* Slide-over component */}
       {isOpen && (
         <div
@@ -42,7 +120,7 @@ const Cart = () => {
                           className="text-lg font-medium text-gray-900"
                           id="slide-over-title"
                         >
-                          Shopping cart
+                          Shopping Cart
                         </h2>
                         <div className="ml-3 flex h-7 items-center">
                           <button
@@ -77,41 +155,76 @@ const Cart = () => {
                             role="list"
                             className="-my-6 divide-y divide-gray-200"
                           >
-                            <li className="flex py-6">
-                              <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
-                                <img
-                                  src="https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-01.jpg"
-                                  alt="Product"
-                                  className="h-full w-full object-cover object-center"
-                                />
-                              </div>
-
-                              <div className="ml-4 flex flex-1 flex-col">
-                                <div>
-                                  <div className="flex justify-between text-base font-medium text-gray-900">
-                                    <h3>
-                                      <a href="#">Throwback Hip Bag</a>
-                                    </h3>
-                                    <p className="ml-4">$90.00</p>
-                                  </div>
-                                  <p className="mt-1 text-sm text-gray-500">
-                                    Salmon
-                                  </p>
+                            {products.map((product) => (
+                              <li key={product._id} className="flex py-6">
+                                <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
+                                  <img
+                                    src={product.images} // Replace with product image
+                                    alt={product.name}
+                                    className="h-full w-full object-cover object-center"
+                                  />
                                 </div>
-                                <div className="flex flex-1 items-end justify-between text-sm">
-                                  <p className="text-gray-500">Qty 1</p>
 
-                                  <div className="flex">
-                                    <button
-                                      type="button"
-                                      className="font-medium text-indigo-600 hover:text-indigo-500"
-                                    >
-                                      Remove
-                                    </button>
+                                <div className="ml-4 flex flex-1 flex-col">
+                                  <div>
+                                    <div className="flex justify-between text-base font-medium text-gray-900">
+                                      <h3>
+                                        <a href="#">{product.name}</a>
+                                      </h3>
+                                      <p className="ml-4">
+                                        ${product.price.toFixed(2)}
+                                      </p>
+                                    </div>
+                                    <p className="mt-1 text-sm text-gray-500">
+                                      {product.description}{" "}
+                                      {/* Replace with product description */}
+                                    </p>
+                                  </div>
+                                  <div className="flex flex-1 items-end justify-between text-sm">
+                                    <p className="text-gray-500">
+                                      Qty :{product.stockQuantity}
+                                    </p>
+                                    <div className="flex">
+                                      <button
+                                        type="button"
+                                        onClick={() =>
+                                          handleQuantity(
+                                            "decrement",
+                                            product._id,
+                                            product.stockQuantity
+                                          )
+                                        }
+                                        className="font-medium text-2xl text-indigo-600 hover:text-indigo-500"
+                                      >
+                                        -
+                                      </button>
+                                      <button
+                                        type="button"
+                                        onClick={() =>
+                                          handleQuantity(
+                                            "increment",
+                                            product._id,
+                                            product.stockQuantity
+                                          )
+                                        }
+                                        className="font-medium text-2xl text-indigo-600 hover:text-indigo-500 ml-2"
+                                      >
+                                        +
+                                      </button>
+                                      <button
+                                        type="button"
+                                        onClick={() =>
+                                          handleDelete(product._id)
+                                        }
+                                        className="font-medium text-red-600 hover:text-red-500 ml-4"
+                                      >
+                                        Remove
+                                      </button>
+                                    </div>
                                   </div>
                                 </div>
-                              </div>
-                            </li>
+                              </li>
+                            ))}
                           </ul>
                         </div>
                       </div>
@@ -120,26 +233,31 @@ const Cart = () => {
                     <div className="border-t border-gray-200 px-4 py-6 sm:px-6">
                       <div className="flex justify-between text-base font-medium text-gray-900">
                         <p>Subtotal</p>
-                        <p>$90.00</p>
+                        <p>${totalPrice.toFixed(2)}</p>
                       </div>
                       <p className="mt-0.5 text-sm text-gray-500">
                         Shipping and taxes calculated at checkout.
                       </p>
-                      <div className="mt-6">
-                        <a
-                          href="#"
-                          className="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
+                      <div className="mt-6 flex justify-between">
+                        <button
+                          onClick={handleCheckout}
+                          className="primary-btn"
                         >
                           Checkout
-                        </a>
+                        </button>
+                        <button
+                          onClick={handleClearCart}
+                          className="primary-btn"
+                        >
+                          Clear Cart
+                        </button>
                       </div>
-                      <div className="mt-6 flex justify-center text-center text-sm text-gray-500">
+                      <div className="mt-6 flex  justify-center text-center text-sm text-gray-500">
                         <p>
-                          or
                           <button
                             type="button"
                             onClick={toggleSlideOver}
-                            className="font-medium text-indigo-600 hover:text-indigo-500"
+                            className="secondary-btn"
                           >
                             Continue Shopping
                             <span aria-hidden="true"> &rarr;</span>

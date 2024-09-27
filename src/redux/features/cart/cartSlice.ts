@@ -32,7 +32,7 @@ export const cartSlice = createSlice({
         existingProduct.stockQuantity += 1;
       } else {
         // If the product is not in the cart, add it with a quantity of 1
-        state.products.push({ ...action.payload, quantity: 1 });
+        state.products.push({ ...action.payload, stockQuantity: 1 });
       }
 
       // Update the selectedItems and totalPrice after adding to cart
@@ -45,13 +45,22 @@ export const cartSlice = createSlice({
     ) => {
       state.products = state.products.map((product) => {
         if (product._id === action.payload._id) {
-          if (action.payload.type === "increment") {
-            product.stockQuantity += 1;
-          } else if (
-            action.payload.type === "decrement" &&
+          // Handle increment action
+          if (
+            action.payload.type === "increment" &&
             product.stockQuantity > 0
           ) {
-            product.stockQuantity -= 1;
+            return {
+              ...product,
+              stockQuantity: product.stockQuantity + 1, // Decrease available stock
+            };
+          }
+          // Handle decrement action
+          else if (action.payload.type === "decrement") {
+            return {
+              ...product,
+              stockQuantity: product.stockQuantity - 1, // Increase available stock
+            };
           }
         }
         return product;

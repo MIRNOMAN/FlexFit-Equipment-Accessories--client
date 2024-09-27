@@ -57,7 +57,12 @@ const ProductDetails = () => {
     }
 
     // Dispatch action to add the product to cart
-    dispatch(addToCart({ ...product, stockQuantity: product.stockQuantity })); // Pass the available quantity
+    dispatch(
+      addToCart({
+        ...product,
+        stockQuantity: product.stockQuantity - totalQuantityInCart,
+      })
+    ); // Pass the available quantity
   };
 
   const isOutOfStock = productQuantityInCart >= product.stockQuantity;
@@ -124,9 +129,6 @@ const ProductDetails = () => {
                 }`}
               >
                 {isOutOfStock ? "Out of Stock" : "Add to Cart"}
-              </button>
-              <button className="bg-gray-200 flex gap-2 items-center text-gray-800 px-6 py-2 rounded-md hover:bg-gray-300 focus:outline-none">
-                Wishlist
               </button>
             </div>
 
