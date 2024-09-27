@@ -66,7 +66,7 @@ const Products: React.FC = () => {
   }
 
   if (error) {
-    return <p>Something went wrong: {error.message}</p>;
+    return <p>Something went wrong</p>;
   }
 
   return (
