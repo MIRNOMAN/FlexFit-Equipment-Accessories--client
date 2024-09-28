@@ -11,6 +11,7 @@ import Cart from "../pages/Cart";
 import CheckOut from "../pages/CheckOut/CheckOut";
 import CheckOutSuccess from "../pages/CheckOut/CheckOutSuccess";
 import Admin from "../components/layouts/Admin/Admin";
+import AddProdcutAdmin from "../components/layouts/Admin/AddProdcutAdmin";
 
 const router = createBrowserRouter([
   {
@@ -49,6 +50,10 @@ const router = createBrowserRouter([
       {
         path: "/admin",
         element: <Admin></Admin>,
+      },
+      {
+        path: "/addProduct",
+        element: <AddProdcutAdmin></AddProdcutAdmin>,
       },
     ],
   },
