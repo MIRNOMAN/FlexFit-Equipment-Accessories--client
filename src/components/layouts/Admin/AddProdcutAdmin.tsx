@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from "react";
 import { useAddProductMutation } from "../../../redux/api/productApi";
+import { toast } from "sonner";
 
 const AddProdcutAdmin = () => {
-  const [addProduct, { isLoading, isError, isSuccess, error }] =
-    useAddProductMutation();
+  const [addProduct, { isLoading, isError, error }] = useAddProductMutation();
 
   // State to manage multiple images
   const [images, setImages] = useState<string[]>([""]);
@@ -36,18 +36,17 @@ const AddProdcutAdmin = () => {
     const description = (
       form.elements.namedItem("description") as HTMLInputElement
     ).value;
-    const quantity = Number(
+    const stockQuantity = Number(
       (form.elements.namedItem("stockQuantity") as HTMLInputElement).value
     );
-    const image = (form.elements.namedItem("image") as HTMLInputElement).value;
 
     const productData = {
       name,
       price: parseFloat(price),
-      category: [category],
+      category,
       description,
-      quantity,
-      image,
+      stockQuantity,
+      images, // Use the images state here
     };
 
     console.log(productData);
@@ -56,7 +55,8 @@ const AddProdcutAdmin = () => {
       const result = await addProduct(productData).unwrap();
       console.log(result);
       form.reset();
-      console.log("Product added successfully");
+      setImages([""]); // Reset images to empty state
+      toast.success("Product added successfully");
     } catch (error) {
       console.error("Failed to add product:", error);
       if ((error as any).data) {
@@ -69,7 +69,7 @@ const AddProdcutAdmin = () => {
     <div className="bg-gray-400">
       <h1 className="text-5xl font-bold text-center py-7">Add Product</h1>
       <div>
-        <div className="  lg:w-3/5 mx-auto">
+        <div className="  lg:w-3/5 pb-8 mx-auto">
           <form onSubmit={handleAddProduct}>
             <div className=" mb-6 ">
               <div>
@@ -194,11 +194,7 @@ const AddProdcutAdmin = () => {
 
           {/* Show loading, success, or error messages */}
           {isLoading && <p>Loading...</p>}
-          {isSuccess && (
-            <p className="text-center text-4xl font-bold mx-auto text-green-600">
-              Product added successfully!
-            </p>
-          )}
+
           {isError && <p>Error product not add successfull </p>}
         </div>
       </div>

@@ -5,6 +5,7 @@ import {
 } from "../../../redux/api/productApi";
 import { MdDelete } from "react-icons/md";
 import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
 
 interface Product {
   _id: string;
@@ -24,18 +25,35 @@ const Admin = () => {
   const products = Array.isArray(data?.data) ? data.data : [];
 
   const handleDelete = async (_id: string) => {
-    const confirmed = window.confirm(
-      "Are you sure you want to delete this product?"
-    );
-    if (confirmed) {
-      try {
-        const result = await deleteProduct(_id).unwrap();
-        console.log(result);
-        console.log("Product deleted successfully");
-      } catch (error) {
-        console.log("Failed to delete product", error);
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        deleteProduct(_id)
+          .unwrap()
+          .then(() => {
+            Swal.fire({
+              title: "Deleted!",
+              text: "The product has been deleted.",
+              icon: "success",
+            });
+          })
+          .catch((error) => {
+            Swal.fire({
+              title: "Error!",
+              text: "There was a problem deleting the product.",
+              icon: "error",
+            });
+            console.error("Error deleting product:", error);
+          });
       }
-    }
+    });
   };
 
   // Handle loading state
