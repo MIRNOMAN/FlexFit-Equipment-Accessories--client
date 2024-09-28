@@ -78,9 +78,9 @@ const Admin = () => {
                       <div className="avatar">
                         <div className="mask mask-squircle w-8 h-8 md:w-12 md:h-12">
                           <img
-                            src={product.image}
+                            src={product.images[0]}
                             alt={product.name}
-                            className="w-full h-full object-cover"
+                            className="w-full h-full rounded-lg object-cover"
                           />
                         </div>
                       </div>
@@ -116,7 +116,7 @@ const Admin = () => {
 
       {/* Add Product Button is always displayed */}
       <div className="flex justify-end my-5 p-1 ">
-        <Link to="/addProduct" className="btn btn-primary">
+        <Link to="/addProduct" className="btn primary-btn">
           Add Product
         </Link>
       </div>
