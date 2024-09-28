@@ -38,6 +38,7 @@ const SmalldeviceSidebar = () => {
     { to: "/", label: "Home", icon: <HomeIcon /> },
     { to: "/products", label: "Products", icon: <ShoppingBagIcon /> },
     { to: "/aboutus", label: "About Us", icon: <InfoIcon /> },
+    { to: "/admin", label: "Admin", icon: <InfoIcon /> },
     { to: "/login", label: "Login", icon: <LoginIcon /> },
     { to: "/register", label: "Register", icon: <LogoutIcon /> },
   ];

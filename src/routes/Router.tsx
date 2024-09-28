@@ -10,6 +10,7 @@ import ProductDetails from "../pages/ProductDetails";
 import Cart from "../pages/Cart";
 import CheckOut from "../pages/CheckOut/CheckOut";
 import CheckOutSuccess from "../pages/CheckOut/CheckOutSuccess";
+import Admin from "../components/layouts/Admin/Admin";
 
 const router = createBrowserRouter([
   {
@@ -44,6 +45,10 @@ const router = createBrowserRouter([
       {
         path: "/checkout-success",
         element: <CheckOutSuccess></CheckOutSuccess>,
+      },
+      {
+        path: "/admin",
+        element: <Admin></Admin>,
       },
     ],
   },
