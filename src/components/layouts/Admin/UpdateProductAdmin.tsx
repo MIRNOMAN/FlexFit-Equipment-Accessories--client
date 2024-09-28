@@ -6,6 +6,7 @@ import {
 } from "../../../redux/api/productApi";
 import { useEffect, useState } from "react";
 import { Button } from "antd";
+import { toast } from "sonner";
 
 const UpdateProductAdmin = () => {
   const { id } = useParams();
@@ -15,7 +16,7 @@ const UpdateProductAdmin = () => {
     error: fetchError,
   } = useGetProductByIdQuery(id); // Fetch product by ID
 
-  const [updateProduct, { isLoading: isUpdating, isSuccess, isError }] =
+  const [updateProduct, { isLoading: isUpdating, isError }] =
     useUpdateProductMutation();
 
   const [formData, setFormData] = useState({
@@ -44,7 +45,7 @@ const UpdateProductAdmin = () => {
       });
 
       // Set images state if product images are available
-      setImages(product.data.images || [""]);
+      setImages(product.data.images || []);
     }
   }, [product]);
 
@@ -71,7 +72,7 @@ const UpdateProductAdmin = () => {
       const updatedProduct = {
         ...formData,
         price: parseFloat(formData.price),
-        quantity: Number(formData.stockQuantity),
+        stockQuantity: Number(formData.stockQuantity),
         images, // Include the images array here
       };
 
@@ -80,9 +81,9 @@ const UpdateProductAdmin = () => {
         data: updatedProduct,
       }).unwrap();
       console.log(result);
-      console.log("Product updated successfully");
-    } catch (err) {
-      console.error("Failed to update product:", err);
+      toast.success("Product updated successfully");
+    } catch {
+      toast.error("Failed to update product");
     }
   };
 
@@ -219,6 +220,7 @@ const UpdateProductAdmin = () => {
                     />
                   </div>
                 ))}
+
                 <Button
                   type="primary"
                   onClick={handleAddImage}
@@ -240,7 +242,6 @@ const UpdateProductAdmin = () => {
           {/* Show loading, success, or error messages */}
           {isUpdating && <p>Updating product...</p>}
           {isError && <p>Failed to update product</p>}
-          {isSuccess && <p>Product updated successfully</p>}
         </div>
       </div>
     </div>

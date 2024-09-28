@@ -12,6 +12,7 @@ import CheckOut from "../pages/CheckOut/CheckOut";
 import CheckOutSuccess from "../pages/CheckOut/CheckOutSuccess";
 import Admin from "../components/layouts/Admin/Admin";
 import AddProdcutAdmin from "../components/layouts/Admin/AddProdcutAdmin";
+import UpdateProductAdmin from "../components/layouts/Admin/UpdateProductAdmin";
 
 const router = createBrowserRouter([
   {
@@ -54,6 +55,10 @@ const router = createBrowserRouter([
       {
         path: "/addProduct",
         element: <AddProdcutAdmin></AddProdcutAdmin>,
+      },
+      {
+        path: "/updateProduct/:id",
+        element: <UpdateProductAdmin></UpdateProductAdmin>,
       },
     ],
   },

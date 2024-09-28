@@ -24,12 +24,7 @@ const AddProdcutAdmin = () => {
   const handleAddProduct = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const form = event.target as HTMLFormElement;
-    // const name = form.name.value;
-    // const price = form.price.value;
-    // const category = form.category.value;
-    // const description = form.description.value;
-    // const quantity = Number(form.quantity.value);
-    // const image = form.image.value;
+
     const name = (form.elements.namedItem("name") as HTMLInputElement).value;
     const price = (form.elements.namedItem("price") as HTMLInputElement).value;
     const category = (form.elements.namedItem("category") as HTMLSelectElement)
