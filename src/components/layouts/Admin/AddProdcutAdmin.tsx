@@ -52,70 +52,111 @@ const AddProdcutAdmin = () => {
   };
 
   return (
-    <div>
-      <h1 className="text-5xl font-bold text-center my-7">Add Product</h1>
+    <div className="bg-gray-400">
+      <h1 className="text-5xl font-bold text-center py-7">Add Product</h1>
       <div>
-        <div className="bg-base-100 shadow-2xl">
+        <div className="  lg:w-3/5 mx-auto">
           <form onSubmit={handleAddProduct}>
-            <div className="mt-6">
-              <input
-                type="text"
-                placeholder="Product name"
-                name="name"
-                className="input input-bordered input-accent w-full my-1"
-                required
-              />
-              <input
-                type="text"
-                name="price"
-                placeholder="Product Price"
-                className="input input-bordered input-accent w-full my-1"
-                required
-              />
-              <select
-                name="category"
-                className="input input-bordered input-accent w-full my-1"
-                required
-              >
-                <option value="">Select a category</option>
-                <option value="Cardio">Cardio</option>
-                <option value="Strength">Strength</option>
-                <option value="Yoga">Yoga</option>
-                <option value="Accessories">Accessories</option>
-                <option value="Recovery">Recovery</option>
-              </select>
-
-              <input
-                type="text"
-                name="description"
-                placeholder="Product description"
-                className="input input-bordered input-accent w-full my-1"
-                required
-              />
-
-              <input
-                type="number"
-                name="quantity"
-                placeholder="Product quantity"
-                className="input input-bordered input-accent w-full my-1"
-                required
-              />
-              <input
-                type="text"
-                name="image"
-                placeholder="Product Image URL"
-                className="input input-bordered input-accent w-full my-1"
-                required
-              />
-              <div className="text-center md:my-3 my-1">
+            <div className=" mb-6 ">
+              <div>
+                <label
+                  htmlFor="first_name"
+                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                >
+                  Product Name
+                </label>
                 <input
-                  type="submit"
-                  className="btn btn-primary px-8"
-                  value="Add Product"
-                  disabled={isLoading}
+                  type="text"
+                  name="name"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 transition duration-150 ease-in-out"
+                  placeholder="Name...."
+                  required
+                />
+              </div>
+
+              <div>
+                <label
+                  htmlFor="company"
+                  className="block my-2 text-sm font-medium text-gray-900 dark:text-white"
+                >
+                  Product Price
+                </label>
+                <input
+                  type="text"
+                  id="company"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 transition duration-150 ease-in-out"
+                  placeholder="Flowbite"
+                  required
+                />
+              </div>
+
+              <div>
+                <label
+                  htmlFor="website"
+                  className="block my-2 text-sm font-medium text-gray-900 dark:text-white"
+                >
+                  Product Category
+                </label>
+                <input
+                  type="url"
+                  id="website"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 transition duration-150 ease-in-out"
+                  placeholder="flowbite.com"
+                  required
+                />
+              </div>
+              <div>
+                <label
+                  htmlFor="visitors"
+                  className="block my-2 text-sm font-medium text-gray-900 dark:text-white"
+                >
+                  Product Description
+                </label>
+                <input
+                  type="number"
+                  id="visitors"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 transition duration-150 ease-in-out"
+                  required
                 />
               </div>
             </div>
+            <div className="mb-6">
+              <label
+                htmlFor="email"
+                className="block my-2 text-sm font-medium text-gray-900 dark:text-white"
+              >
+                Product Quantity
+              </label>
+              <input
+                type="email"
+                id="email"
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 transition duration-150 ease-in-out"
+                placeholder="john.doe@company.com"
+                required
+              />
+            </div>
+            <div className="mb-6">
+              <label
+                htmlFor="password"
+                className="block my-2 text-sm font-medium text-gray-900 dark:text-white"
+              >
+                Product Images
+              </label>
+              <input
+                type="password"
+                id="password"
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 transition duration-150 ease-in-out"
+                placeholder="•••••••••"
+                required
+              />
+            </div>
+
+            <button
+              type="submit"
+              className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 transition duration-150 ease-in-out"
+            >
+              Submit
+            </button>
           </form>
 
           {/* Show loading, success, or error messages */}
