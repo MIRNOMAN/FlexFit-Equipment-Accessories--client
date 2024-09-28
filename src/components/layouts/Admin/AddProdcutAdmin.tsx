@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { useAddProductMutation } from "../../../redux/api/productApi";
 import { toast } from "sonner";
+import { Button } from "antd";
 
 const AddProdcutAdmin = () => {
   const [addProduct, { isLoading, isError, error }] = useAddProductMutation();
@@ -175,18 +176,14 @@ const AddProdcutAdmin = () => {
                   />
                 </div>
               ))}
-              <button
-                type="button"
-                onClick={handleAddImage}
-                className="text-blue-500 mt-2"
-              >
+              <Button type="primary" onClick={handleAddImage} className=" mt-2">
                 Add Another Image
-              </button>
+              </Button>
             </div>
 
             <button
               type="submit"
-              className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 transition duration-150 ease-in-out"
+              className="text-white  bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 transition duration-150 ease-in-out"
             >
               Submit
             </button>
