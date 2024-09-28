@@ -1,12 +1,9 @@
-import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
-import "../styles/cartmodel.css";
+import logo from "../assets/icons/navber_logo.png";
+
 import "antd/dist/reset.css";
-import { Button } from "antd";
-import LoginIcon from "@mui/icons-material/Login";
-import Register from "./Register";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { setUser } from "../redux/features/auth/authSlice";
 import { useLoginMutation } from "../redux/features/auth/authApi";
@@ -17,26 +14,10 @@ interface LoginForm {
 }
 
 const Login = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [isCloseing, setIsCloseing] = useState(false);
   const { register, handleSubmit } = useForm<LoginForm>();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [login] = useLoginMutation();
-
-  const openModal = () => {
-    setIsOpen(true);
-    document.body.style.overflowX = "hidden";
-  };
-
-  const closeModal = () => {
-    setIsCloseing(true);
-    document.body.style.overflowX = "auto";
-    setTimeout(() => {
-      setIsOpen(false);
-      setIsCloseing(false);
-    }, 300);
-  };
 
   const onSubmit: SubmitHandler<LoginForm> = async ({ email, password }) => {
     // Dispatch the user data
@@ -53,8 +34,6 @@ const Login = () => {
 
       // Navigate to home
       navigate("/");
-
-      setIsCloseing(true);
     } catch (err) {
       toast.error("Login failed. Please try again.");
       console.error(err);
@@ -62,89 +41,78 @@ const Login = () => {
   };
 
   return (
-    <>
-      <li
-        className="text-lg font-semibold list-none ml-6 cursor-pointer"
-        onClick={openModal}
-      >
-        Login
-      </li>
+    <div className="flex min-h-full flex-1 flex-col justify-center px-6 pt-12 lg:px-8">
+      <div className="sm:mx-auto sm:w-full sm:max-w-sm">
+        <img
+          alt="Your Company"
+          src={logo}
+          className="mx-auto h-[100px] flex justify-center w-auto"
+        />
+        <h2 className="mt-4 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
+          Sign in to your account
+        </h2>
+      </div>
 
-      {isOpen && (
-        <>
-          <div className="cartoverlay" onClick={closeModal}></div>
-          <div
-            className={`cartmodel p-6 overflow-y-f text-primary ${
-              isCloseing ? "closing" : ""
-            }`}
-          >
-            <div className="">
-              <div className="flex flex-col items-center justify-center   mx-auto  lg:py-0">
-                <div className="w-full bg-white rounded-lg  dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
-                  <div className="p-6 space-y-4 md:space-y-6  sm:p-8">
-                    <h1 className="text-base font-bold leading-tight tracking-tight text-gray-900 md:text-xl dark:text-white">
-                      Sign in to your account
-                    </h1>
-                    <form
-                      className="space-y-4 md:space-y-6"
-                      onSubmit={handleSubmit(onSubmit)}
-                    >
-                      <div>
-                        <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                          Your email
-                        </label>
-                        <input
-                          type="email"
-                          id="email"
-                          {...register("email")}
-                          className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                          placeholder="name@company.com"
-                          required
-                        />
-                      </div>
-                      <div>
-                        <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                          Password
-                        </label>
-                        <input
-                          type="password"
-                          id="password"
-                          {...register("password")}
-                          placeholder="••••••••"
-                          className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                          required
-                        />
-                      </div>
-
-                      <Button
-                        htmlType="submit"
-                        type="primary"
-                        block
-                        size="large"
-                        shape="round"
-                      >
-                        <LoginIcon fontSize="inherit" /> Sign in
-                      </Button>
-
-                      <p className="text-sm font-light text-gray-500 dark:text-gray-400">
-                        Don’t have an account yet? Enter please{" "}
-                        <p className="cursor-pointer text-cyan-500">
-                          <Register />
-                        </p>
-                      </p>
-                    </form>
-                    <hr className="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700" />
-                    <div></div>
-
-                    <hr className="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700" />
-                  </div>
-                </div>
-              </div>
+      <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+          <div>
+            <label
+              htmlFor="email"
+              className="block text-sm font-medium leading-6 text-gray-900"
+            >
+              Email address
+            </label>
+            <div className="mt-2">
+              <input
+                type="email"
+                id="email"
+                {...register("email")}
+                placeholder="Enter your email address"
+                required
+                autoComplete="email"
+                className="block w-full pl-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              />
             </div>
           </div>
-        </>
-      )}
-    </>
+
+          <div>
+            <div className="flex items-center justify-between">
+              <label
+                htmlFor="password"
+                className="block text-sm font-medium leading-6 text-gray-900"
+              >
+                Password
+              </label>
+            </div>
+            <div className="mt-2">
+              <input
+                type="password"
+                {...register("password")}
+                placeholder="Enetr Password"
+                required
+                autoComplete="current-password"
+                className="block w-full pl-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              />
+            </div>
+          </div>
+
+          <div>
+            <button
+              type="submit"
+              className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+            >
+              Sign in
+            </button>
+          </div>
+          <p className="font-normal">
+            Don’t have an account yet?{" "}
+            <span className="text-blue-600 font-bold">
+              <Link to="/register">Sign up</Link>
+            </span>
+          </p>
+        </form>
+      </div>
+    </div>
   );
 };
 

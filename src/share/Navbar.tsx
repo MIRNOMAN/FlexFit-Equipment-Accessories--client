@@ -14,7 +14,6 @@ import {
 } from "@mui/material";
 import React from "react";
 import { NavLink } from "react-router-dom";
-import Login from "../pages/Login";
 import SmalldeviceSidebar from "../utils/sidebar/SmalldeviceSidebar";
 import Cart from "../pages/Cart";
 
@@ -42,6 +41,9 @@ const Navbar = () => {
       </li>
       <li>
         <NavLink to="/admin">Admin</NavLink>
+      </li>
+      <li>
+        <NavLink to="/login">Login</NavLink>
       </li>
     </ul>
   );
@@ -143,7 +145,6 @@ const Navbar = () => {
             }}
           >
             {navlinks}
-            <Login />
           </Box>
           <Box
             sx={{
