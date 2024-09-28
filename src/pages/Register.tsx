@@ -5,6 +5,7 @@ import { useRegisterUserMutation } from "../redux/features/auth/authApi";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../assets/icons/navber_logo.png";
 import { useEffect } from "react";
+import { toast } from "sonner";
 
 const Register = () => {
   const { register, handleSubmit } = useForm();
@@ -15,6 +16,7 @@ const Register = () => {
     try {
       await registerUser(userData).unwrap();
       // Handle success, like redirecting to a dashboard
+      toast.success("Registration successfully");
       console.log(userData);
       navigate("/login"); // Adjust to the route you want to redirect to
     } catch (err) {
