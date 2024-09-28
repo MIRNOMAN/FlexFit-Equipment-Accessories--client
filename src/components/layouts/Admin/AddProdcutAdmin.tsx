@@ -1,9 +1,23 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { useState } from "react";
 import { useAddProductMutation } from "../../../redux/api/productApi";
 
 const AddProdcutAdmin = () => {
   const [addProduct, { isLoading, isError, isSuccess, error }] =
     useAddProductMutation();
+
+  // State to manage multiple images
+  const [images, setImages] = useState<string[]>([""]);
+
+  const handleImageChange = (index: number, value: string) => {
+    const newImages = [...images];
+    newImages[index] = value;
+    setImages(newImages);
+  };
+
+  const handleAddImage = () => {
+    setImages([...images, ""]); // Add a new empty string for a new image input
+  };
 
   console.log(error);
   const handleAddProduct = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -23,7 +37,7 @@ const AddProdcutAdmin = () => {
       form.elements.namedItem("description") as HTMLInputElement
     ).value;
     const quantity = Number(
-      (form.elements.namedItem("quantity") as HTMLInputElement).value
+      (form.elements.namedItem("stockQuantity") as HTMLInputElement).value
     );
     const image = (form.elements.namedItem("image") as HTMLInputElement).value;
 
@@ -82,10 +96,10 @@ const AddProdcutAdmin = () => {
                   Product Price
                 </label>
                 <input
-                  type="text"
-                  id="company"
+                  type="number"
+                  name="price"
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 transition duration-150 ease-in-out"
-                  placeholder="Flowbite"
+                  placeholder="price"
                   required
                 />
               </div>
@@ -97,13 +111,21 @@ const AddProdcutAdmin = () => {
                 >
                   Product Category
                 </label>
-                <input
-                  type="url"
-                  id="website"
+
+                <select
+                  name="category"
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 transition duration-150 ease-in-out"
-                  placeholder="flowbite.com"
                   required
-                />
+                >
+                  <option value="">Select a category</option>
+                  <option value="Treadmills">Treadmills</option>
+                  <option value="Barbells">Barbells</option>
+                  <option value="Dumbbells">Dumbbells</option>
+                  <option value="Ellipticals">Ellipticals</option>
+                  <option value="Foam Rollers">Foam Rollers</option>
+                  <option value="Kettlebells">Kettlebells</option>
+                  <option value="Yoga Mats">Yoga Mats</option>
+                </select>
               </div>
               <div>
                 <label
@@ -113,8 +135,9 @@ const AddProdcutAdmin = () => {
                   Product Description
                 </label>
                 <input
-                  type="number"
-                  id="visitors"
+                  type="text"
+                  name="description"
+                  placeholder="Description...."
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 transition duration-150 ease-in-out"
                   required
                 />
@@ -128,27 +151,37 @@ const AddProdcutAdmin = () => {
                 Product Quantity
               </label>
               <input
-                type="email"
-                id="email"
+                type="number"
+                name="stockQuantity"
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 transition duration-150 ease-in-out"
-                placeholder="john.doe@company.com"
+                placeholder="Quantity"
                 required
               />
             </div>
             <div className="mb-6">
-              <label
-                htmlFor="password"
-                className="block my-2 text-sm font-medium text-gray-900 dark:text-white"
-              >
+              <label className="block my-2 text-sm font-medium text-gray-900 dark:text-white">
                 Product Images
               </label>
-              <input
-                type="password"
-                id="password"
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 transition duration-150 ease-in-out"
-                placeholder="•••••••••"
-                required
-              />
+              {images.map((image, index) => (
+                <div key={index} className="flex items-center mb-2">
+                  <input
+                    type="url"
+                    name={`image${index}`}
+                    value={image}
+                    onChange={(e) => handleImageChange(index, e.target.value)}
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                    placeholder="Image URL"
+                    required
+                  />
+                </div>
+              ))}
+              <button
+                type="button"
+                onClick={handleAddImage}
+                className="text-blue-500 mt-2"
+              >
+                Add Another Image
+              </button>
             </div>
 
             <button
