@@ -1,8 +1,11 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useParams } from "react-router-dom";
 import {
   useGetProductByIdQuery,
   useUpdateProductMutation,
 } from "../../../redux/api/productApi";
+import { useEffect, useState } from "react";
+import { Button } from "antd";
 
 const UpdateProductAdmin = () => {
   const { id } = useParams();
@@ -20,12 +23,34 @@ const UpdateProductAdmin = () => {
     price: "",
     category: "",
     description: "",
-    quantity: "",
-    image: "",
+    stockQuantity: "",
+    images: "", // Keep the images field here as part of formData
   });
 
-  // State to manage multiple images
+  // State to manage multiple images, initialize as string array
   const [images, setImages] = useState<string[]>([""]);
+
+  // Only update formData if product is available
+  useEffect(() => {
+    console.log(product);
+    if (product) {
+      setFormData({
+        name: product.data.name || "",
+        price: product.data.price || "",
+        category: product.data.category,
+        description: product.data.description || "",
+        stockQuantity: product.data.stockQuantity || "",
+        images: product.data.images || "",
+      });
+
+      // Set images state if product images are available
+      setImages(product.data.images || [""]);
+    }
+  }, [product]);
+
+  const handleChange = (e: any) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
 
   const handleImageChange = (index: number, value: string) => {
     const newImages = [...images];
@@ -37,62 +62,47 @@ const UpdateProductAdmin = () => {
     setImages([...images, ""]); // Add a new empty string for a new image input
   };
 
-  console.log(error);
-  const handleAddProduct = async (event: React.FormEvent<HTMLFormElement>) => {
+  const handleUpdateProduct = async (
+    event: React.FormEvent<HTMLFormElement>
+  ) => {
     event.preventDefault();
-    const form = event.target as HTMLFormElement;
-    // const name = form.name.value;
-    // const price = form.price.value;
-    // const category = form.category.value;
-    // const description = form.description.value;
-    // const quantity = Number(form.quantity.value);
-    // const image = form.image.value;
-    const name = (form.elements.namedItem("name") as HTMLInputElement).value;
-    const price = (form.elements.namedItem("price") as HTMLInputElement).value;
-    const category = (form.elements.namedItem("category") as HTMLSelectElement)
-      .value;
-    const description = (
-      form.elements.namedItem("description") as HTMLInputElement
-    ).value;
-    const stockQuantity = Number(
-      (form.elements.namedItem("stockQuantity") as HTMLInputElement).value
-    );
-
-    const productData = {
-      name,
-      price: parseFloat(price),
-      category,
-      description,
-      stockQuantity,
-      images, // Use the images state here
-    };
-
-    console.log(productData);
 
     try {
-      const result = await addProduct(productData).unwrap();
+      const updatedProduct = {
+        ...formData,
+        price: parseFloat(formData.price),
+        quantity: Number(formData.stockQuantity),
+        images, // Include the images array here
+      };
+
+      const result = await updateProduct({
+        _id: id,
+        data: updatedProduct,
+      }).unwrap();
       console.log(result);
-      form.reset();
-      setImages([""]); // Reset images to empty state
-      toast.success("Product added successfully");
-    } catch (error) {
-      console.error("Failed to add product:", error);
-      if ((error as any).data) {
-        console.error("Error data:", (error as any).data);
-      }
+      console.log("Product updated successfully");
+    } catch (err) {
+      console.error("Failed to update product:", err);
     }
   };
 
+  if (isFetchingProduct) return <div>Loading product...</div>;
+  if (fetchError) return <div>Error fetching product data</div>;
+
+  // Check if the product is available before rendering the form
+  if (!product) return <div>No product data available</div>;
+
   return (
     <div className="bg-gray-400">
-      <h1 className="text-5xl font-bold text-center py-7">Add Product</h1>
+      <h1 className="text-5xl font-bold text-center py-7">Update Product</h1>
       <div>
-        <div className="  lg:w-3/5 pb-8 mx-auto">
-          <form onSubmit={handleAddProduct}>
-            <div className=" mb-6 ">
+        <div className="lg:w-3/5 pb-8 mx-auto">
+          <form onSubmit={handleUpdateProduct}>
+            <div className="mb-6">
+              {/* Product Name */}
               <div>
                 <label
-                  htmlFor="first_name"
+                  htmlFor="name"
                   className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                 >
                   Product Name
@@ -100,15 +110,18 @@ const UpdateProductAdmin = () => {
                 <input
                   type="text"
                   name="name"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 transition duration-150 ease-in-out"
-                  placeholder="Name...."
+                  value={formData.name}
+                  onChange={handleChange}
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                  placeholder="Name"
                   required
                 />
               </div>
 
+              {/* Product Price */}
               <div>
                 <label
-                  htmlFor="company"
+                  htmlFor="price"
                   className="block my-2 text-sm font-medium text-gray-900 dark:text-white"
                 >
                   Product Price
@@ -116,23 +129,27 @@ const UpdateProductAdmin = () => {
                 <input
                   type="number"
                   name="price"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 transition duration-150 ease-in-out"
-                  placeholder="price"
+                  value={formData.price}
+                  onChange={handleChange}
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                  placeholder="Price"
                   required
                 />
               </div>
 
+              {/* Product Category */}
               <div>
                 <label
-                  htmlFor="website"
+                  htmlFor="category"
                   className="block my-2 text-sm font-medium text-gray-900 dark:text-white"
                 >
                   Product Category
                 </label>
-
                 <select
                   name="category"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 transition duration-150 ease-in-out"
+                  value={formData.category}
+                  onChange={handleChange}
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                   required
                 >
                   <option value="">Select a category</option>
@@ -145,9 +162,11 @@ const UpdateProductAdmin = () => {
                   <option value="Yoga Mats">Yoga Mats</option>
                 </select>
               </div>
+
+              {/* Product Description */}
               <div>
                 <label
-                  htmlFor="visitors"
+                  htmlFor="description"
                   className="block my-2 text-sm font-medium text-gray-900 dark:text-white"
                 >
                   Product Description
@@ -155,61 +174,73 @@ const UpdateProductAdmin = () => {
                 <input
                   type="text"
                   name="description"
-                  placeholder="Description...."
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 transition duration-150 ease-in-out"
+                  value={formData.description}
+                  onChange={handleChange}
+                  placeholder="Description"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                   required
                 />
               </div>
-            </div>
-            <div className="mb-6">
-              <label
-                htmlFor="email"
-                className="block my-2 text-sm font-medium text-gray-900 dark:text-white"
-              >
-                Product Quantity
-              </label>
-              <input
-                type="number"
-                name="stockQuantity"
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 transition duration-150 ease-in-out"
-                placeholder="Quantity"
-                required
-              />
-            </div>
-            <div className="mb-6">
-              <label className="block my-2 text-sm font-medium text-gray-900 dark:text-white">
-                Product Images
-              </label>
-              {images.map((image, index) => (
-                <div key={index} className="flex items-center mb-2">
-                  <input
-                    type="url"
-                    name={`image${index}`}
-                    value={image}
-                    onChange={(e) => handleImageChange(index, e.target.value)}
-                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                    placeholder="Image URL"
-                    required
-                  />
-                </div>
-              ))}
-              <Button type="primary" onClick={handleAddImage} className=" mt-2">
-                Add Another Image
-              </Button>
-            </div>
 
-            <button
-              type="submit"
-              className="text-white  bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 transition duration-150 ease-in-out"
-            >
-              Submit
-            </button>
+              {/* Product Quantity */}
+              <div>
+                <label
+                  htmlFor="stockQuantity"
+                  className="block my-2 text-sm font-medium text-gray-900 dark:text-white"
+                >
+                  Product Quantity
+                </label>
+                <input
+                  type="number"
+                  name="stockQuantity"
+                  value={formData.stockQuantity}
+                  onChange={handleChange}
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                  placeholder="Quantity"
+                  required
+                />
+              </div>
+
+              {/* Product Images */}
+              <div className="mb-6">
+                <label className="block my-2 text-sm font-medium text-gray-900 dark:text-white">
+                  Product Images
+                </label>
+                {images.map((image, index) => (
+                  <div key={index} className="flex items-center mb-2">
+                    <input
+                      type="url"
+                      name={`image${index}`}
+                      value={image}
+                      onChange={(e) => handleImageChange(index, e.target.value)}
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                      placeholder="Image URL"
+                      required
+                    />
+                  </div>
+                ))}
+                <Button
+                  type="primary"
+                  onClick={handleAddImage}
+                  className="mt-2"
+                >
+                  Add Another Image
+                </Button>
+              </div>
+
+              <button
+                type="submit"
+                className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 transition duration-150 ease-in-out"
+              >
+                Submit
+              </button>
+            </div>
           </form>
 
           {/* Show loading, success, or error messages */}
-          {isLoading && <p>Loading...</p>}
-
-          {isError && <p>Error product not add successfull </p>}
+          {isUpdating && <p>Updating product...</p>}
+          {isError && <p>Failed to update product</p>}
+          {isSuccess && <p>Product updated successfully</p>}
         </div>
       </div>
     </div>
