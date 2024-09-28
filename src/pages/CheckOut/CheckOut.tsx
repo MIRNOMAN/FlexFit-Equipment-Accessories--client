@@ -24,11 +24,11 @@ const CheckOut = () => {
 
   const [paymentMethod] = useState<"COD">("COD"); // Fixed to 'Cash on Delivery'
 
-  const totalAmount = products.reduce(
+  const totalPrice = products.reduce(
     (acc: number, product: any) => acc + product.price * product.stockQuantity,
     0
   );
-  console.log(totalAmount);
+  // console.log(totalPrice);
   // RTK Query mutation hook
   const [createOrder, { isLoading }] = useCreateOrderMutation();
 
@@ -60,8 +60,9 @@ const CheckOut = () => {
         phone: user.phone,
       },
       paymentMethod, // Always 'Cash on Delivery'
+      totalPrice,
     };
-    console.log(orderData);
+    // console.log(orderData);
     try {
       await createOrder(orderData).unwrap();
       toast.success("Order created successfully!");
@@ -134,7 +135,7 @@ const CheckOut = () => {
                 <div>
                   <p className="flex flex-wrap  text-lg font-bold">
                     Total{" "}
-                    <span className="ml-auto">${totalAmount.toFixed(2)}</span>{" "}
+                    <span className="ml-auto">${totalPrice.toFixed(2)}</span>{" "}
                   </p>
                 </div>
               </div>
