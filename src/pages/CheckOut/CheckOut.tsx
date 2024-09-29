@@ -83,6 +83,9 @@ const CheckOut = () => {
         <div className="bg-gray-100 rounded-md p-4 h-max">
           <form onSubmit={handleSubmit} className="mt-6">
             <div className="lg:w-[50%] mx-auto">
+              <h1 className="text-xl text-center text-gray-800 font-semibold mb-4">
+                Only Cash on Delivery
+              </h1>
               <h3 className="text-base text-center text-gray-800 font-semibold mb-4">
                 Enter Details
               </h3>

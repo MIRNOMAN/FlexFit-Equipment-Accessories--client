@@ -35,10 +35,6 @@ const ProductDetails = () => {
   }
 
   if (!productData) {
-    return <div>Product not found.</div>;
-  }
-
-  if (!productData) {
     return <div className="text-center">Product not found</div>;
   }
 

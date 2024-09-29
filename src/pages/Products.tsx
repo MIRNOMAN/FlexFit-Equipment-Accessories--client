@@ -41,7 +41,7 @@ const Products: React.FC = () => {
   const filteredProducts = products?.filter((product: TProduct) => {
     const matchesCategory =
       selectedCategories.length === 0 ||
-      selectedCategories.includes(product.name);
+      selectedCategories.includes(product.category);
     const matchesPrice =
       product.price >= priceRange[0] && product.price <= priceRange[1];
 
@@ -90,10 +90,10 @@ const Products: React.FC = () => {
                     <input
                       type="checkbox"
                       className="mr-2"
-                      checked={selectedCategories.includes(category.name)}
-                      onChange={() => toggleCategory(category.name)}
+                      checked={selectedCategories.includes(category.category)}
+                      onChange={() => toggleCategory(category.category)}
                     />
-                    {category.name}
+                    {category.category}
                   </label>
                 ))}
               </div>
