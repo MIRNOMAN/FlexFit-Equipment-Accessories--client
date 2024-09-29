@@ -25,8 +25,7 @@ const Login = () => {
       const user = await login({ email, password }).unwrap();
       dispatch(
         setUser({
-          email: user.email,
-          password: user.password,
+          user,
         })
       );
 

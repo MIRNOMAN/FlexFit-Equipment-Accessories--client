@@ -153,12 +153,13 @@ const Navbar = () => {
               marginRight: "20px",
             }}
           >
-            <div>
+            <div className="lg:block hidden">
               <img
-                className="w-10 h-10 rounded-full"
+                className="lg:w-10 lg:h-10 lg:rounded-full"
                 src="https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
               />
             </div>
+
             <Cart></Cart>
           </Box>
 
