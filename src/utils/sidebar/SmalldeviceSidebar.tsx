@@ -52,8 +52,8 @@ const SmalldeviceSidebar = () => {
             to={link.to}
             className={({ isActive }) =>
               isActive
-                ? "flex items-center gap-2 p-2 bg-blue-500 text-white rounded"
-                : "flex items-center gap-2 p-2 hover:bg-gray-200 rounded"
+                ? "flex items-center gap-2 p-2 bg-blue-500 text-white rounded relative before:absolute before:-bottom-1 before:left-0 before:w-full before:h-1 before:bg-white before:scale-x-100 before:origin-left before:transition-transform before:duration-300"
+                : "flex items-center gap-2 p-2 hover:bg-gray-200 rounded relative before:absolute before:-bottom-1 before:left-0 before:w-full before:h-1 before:bg-blue-500 before:scale-x-0 hover:before:scale-x-100 before:origin-left before:transition-transform before:duration-300"
             }
           >
             {link.icon} {link.label}
