@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const productApi = createApi({
   reducerPath: "productApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:5000/api",
+    baseUrl: "https://flex-fit-equipment-accessories-server.vercel.app/api",
   }),
   tagTypes: ["Product"],
   endpoints: (builder) => ({

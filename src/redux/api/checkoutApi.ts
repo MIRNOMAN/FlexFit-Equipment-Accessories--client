@@ -4,7 +4,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const checkoutApi = createApi({
   reducerPath: "checkoutApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:5000/api",
+    baseUrl: "https://flex-fit-equipment-accessories-server.vercel.app/api",
   }),
   endpoints: (builder) => ({
     createOrder: builder.mutation({

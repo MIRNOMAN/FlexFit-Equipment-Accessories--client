@@ -1,7 +1,8 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect } from "react";
 
 // Hook to handle scroll animations
-export const useScrollAnimation = (elementRef, animationClass) => {
+export const useScrollAnimation = (elementRef: any, animationClass: any) => {
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
