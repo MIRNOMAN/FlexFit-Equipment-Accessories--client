@@ -29,23 +29,57 @@ const Navbar = () => {
       }}
     >
       <li>
-        <NavLink to="/">Home</NavLink>
+        <NavLink
+          to="/"
+          className={({ isActive }) =>
+            isActive ? "underline" : "no-underline"
+          }
+        >
+          Home
+        </NavLink>
       </li>
       <li>
-        <NavLink to="/products">Products</NavLink>
+        <NavLink
+          to="/products"
+          className={({ isActive }) =>
+            isActive ? "underline" : "no-underline"
+          }
+        >
+          Products
+        </NavLink>
       </li>
       <li>
-        <NavLink to="/aboutus">About Us</NavLink>
+        <NavLink
+          to="/aboutus"
+          className={({ isActive }) =>
+            isActive ? "underline" : "no-underline"
+          }
+        >
+          About Us
+        </NavLink>
       </li>
       <li>
-        <NavLink to="/admin">Admin</NavLink>
+        <NavLink
+          to="/admin"
+          className={({ isActive }) =>
+            isActive ? "underline" : "no-underline"
+          }
+        >
+          Admin
+        </NavLink>
       </li>
       <li>
-        <NavLink to="/login">Login</NavLink>
+        <NavLink
+          to="/login"
+          className={({ isActive }) =>
+            isActive ? "underline" : "no-underline"
+          }
+        >
+          Login
+        </NavLink>
       </li>
     </ul>
   );
-
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null
   );
